@@ -8,7 +8,7 @@ defmodule GalacticTradeAuthority.Changes.ApplyTransitControls do
 
   use Ash.Resource.Change
 
-  alias GalacticTradeAuthority.LocalRules
+  alias GalacticTradeAuthority.Rules.LocalRules
 
   @impl true
   def change(changeset, _opts, _context) do

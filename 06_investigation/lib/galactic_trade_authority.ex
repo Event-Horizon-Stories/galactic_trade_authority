@@ -10,7 +10,7 @@ defmodule GalacticTradeAuthority do
   - derived case files turn raw history into an investigation timeline
   """
 
-  alias GalacticTradeAuthority.{
+  alias GalacticTradeAuthority.Resources.{
     AuditRecord,
     Contract,
     Planet,

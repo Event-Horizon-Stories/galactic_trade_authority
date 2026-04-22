@@ -54,7 +54,7 @@ truth.
 
 The key modeling move is a new resource:
 
-- `GalacticTradeAuthority.AuditRecord`
+- `GalacticTradeAuthority.Resources.AuditRecord`
 
 That resource does not replace shipments or shadow reports. It connects them.
 
@@ -87,16 +87,16 @@ The chapter 6 registry includes:
 The lesson implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
-- [`lib/galactic_trade_authority/trader.ex`](./lib/galactic_trade_authority/trader.ex)
-- [`lib/galactic_trade_authority/planet.ex`](./lib/galactic_trade_authority/planet.ex)
-- [`lib/galactic_trade_authority/trade_resource.ex`](./lib/galactic_trade_authority/trade_resource.ex)
-- [`lib/galactic_trade_authority/planet_rule.ex`](./lib/galactic_trade_authority/planet_rule.ex)
-- [`lib/galactic_trade_authority/contract.ex`](./lib/galactic_trade_authority/contract.ex)
-- [`lib/galactic_trade_authority/shipment.ex`](./lib/galactic_trade_authority/shipment.ex)
-- [`lib/galactic_trade_authority/shadow_report.ex`](./lib/galactic_trade_authority/shadow_report.ex)
-- [`lib/galactic_trade_authority/audit_record.ex`](./lib/galactic_trade_authority/audit_record.ex)
-- [`lib/galactic_trade_authority/rule_engine.ex`](./lib/galactic_trade_authority/rule_engine.ex)
-- [`lib/galactic_trade_authority/ledger_matcher.ex`](./lib/galactic_trade_authority/ledger_matcher.ex)
+- [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
+- [`lib/galactic_trade_authority/resources/planet.ex`](./lib/galactic_trade_authority/resources/planet.ex)
+- [`lib/galactic_trade_authority/resources/trade_resource.ex`](./lib/galactic_trade_authority/resources/trade_resource.ex)
+- [`lib/galactic_trade_authority/resources/planet_rule.ex`](./lib/galactic_trade_authority/resources/planet_rule.ex)
+- [`lib/galactic_trade_authority/resources/contract.ex`](./lib/galactic_trade_authority/resources/contract.ex)
+- [`lib/galactic_trade_authority/resources/shipment.ex`](./lib/galactic_trade_authority/resources/shipment.ex)
+- [`lib/galactic_trade_authority/resources/shadow_report.ex`](./lib/galactic_trade_authority/resources/shadow_report.ex)
+- [`lib/galactic_trade_authority/resources/audit_record.ex`](./lib/galactic_trade_authority/resources/audit_record.ex)
+- [`lib/galactic_trade_authority/rules/rule_engine.ex`](./lib/galactic_trade_authority/rules/rule_engine.ex)
+- [`lib/galactic_trade_authority/investigations/ledger_matcher.ex`](./lib/galactic_trade_authority/investigations/ledger_matcher.ex)
 - [`lib/galactic_trade_authority/changes/apply_regulatory_outcome.ex`](./lib/galactic_trade_authority/changes/apply_regulatory_outcome.ex)
 - [`lib/galactic_trade_authority/changes/classify_ledger_presence.ex`](./lib/galactic_trade_authority/changes/classify_ledger_presence.ex)
 - [`lib/galactic_trade_authority/validations/distinct_route.ex`](./lib/galactic_trade_authority/validations/distinct_route.ex)

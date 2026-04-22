@@ -8,7 +8,7 @@ defmodule GalacticTradeAuthority.Validations.UniqueManifestNumber do
 
   use Ash.Resource.Validation
 
-  alias GalacticTradeAuthority.Shipment
+  alias GalacticTradeAuthority.Resources.Shipment
 
   @impl true
   def validate(changeset, _opts, _context) do

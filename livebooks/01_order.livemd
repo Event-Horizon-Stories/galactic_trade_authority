@@ -28,7 +28,7 @@ state = GalacticTradeAuthority.bootstrap_registry!()
 
 ```elixir
 try do
-  GalacticTradeAuthority.Shipment.register!(%{
+  GalacticTradeAuthority.Resources.Shipment.register!(%{
     manifest_number: "BAD-42",
     quantity: 0,
     declared_value: -10,

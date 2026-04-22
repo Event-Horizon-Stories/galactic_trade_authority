@@ -10,7 +10,7 @@ defmodule GalacticTradeAuthority do
   - investigative reads must now name which bureaucracy they are querying
   """
 
-  alias GalacticTradeAuthority.{
+  alias GalacticTradeAuthority.Resources.{
     AuditRecord,
     Contract,
     Planet,

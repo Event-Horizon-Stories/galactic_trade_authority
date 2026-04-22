@@ -16,7 +16,7 @@ defmodule GalacticTradeAuthority.Changes.ClassifyLedgerPresence do
         origin_planet_id: Ash.Changeset.get_attribute(changeset, :origin_planet_id),
         destination_planet_id: Ash.Changeset.get_attribute(changeset, :destination_planet_id)
       }
-      |> GalacticTradeAuthority.LedgerMatcher.classify(changeset.tenant)
+      |> GalacticTradeAuthority.Investigations.LedgerMatcher.classify(changeset.tenant)
 
     # Persist the comparison result so later audit and query code can rely on a
     # stable official classification for the report.

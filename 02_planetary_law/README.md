@@ -46,7 +46,7 @@ Chapter 2 teaches route-aware legality.
 
 The core modeling move is a new resource:
 
-- `GalacticTradeAuthority.PlanetRule`
+- `GalacticTradeAuthority.Resources.PlanetRule`
 
 That resource belongs to:
 
@@ -88,12 +88,12 @@ That lets one resource reveal three different legal outcomes:
 The lesson implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
-- [`lib/galactic_trade_authority/trader.ex`](./lib/galactic_trade_authority/trader.ex)
-- [`lib/galactic_trade_authority/planet.ex`](./lib/galactic_trade_authority/planet.ex)
-- [`lib/galactic_trade_authority/trade_resource.ex`](./lib/galactic_trade_authority/trade_resource.ex)
-- [`lib/galactic_trade_authority/planet_rule.ex`](./lib/galactic_trade_authority/planet_rule.ex)
-- [`lib/galactic_trade_authority/shipment.ex`](./lib/galactic_trade_authority/shipment.ex)
-- [`lib/galactic_trade_authority/local_rules.ex`](./lib/galactic_trade_authority/local_rules.ex)
+- [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
+- [`lib/galactic_trade_authority/resources/planet.ex`](./lib/galactic_trade_authority/resources/planet.ex)
+- [`lib/galactic_trade_authority/resources/trade_resource.ex`](./lib/galactic_trade_authority/resources/trade_resource.ex)
+- [`lib/galactic_trade_authority/resources/planet_rule.ex`](./lib/galactic_trade_authority/resources/planet_rule.ex)
+- [`lib/galactic_trade_authority/resources/shipment.ex`](./lib/galactic_trade_authority/resources/shipment.ex)
+- [`lib/galactic_trade_authority/rules/local_rules.ex`](./lib/galactic_trade_authority/rules/local_rules.ex)
 - [`lib/galactic_trade_authority/validations/allowed_by_planetary_law.ex`](./lib/galactic_trade_authority/validations/allowed_by_planetary_law.ex)
 - [`lib/galactic_trade_authority/changes/apply_transit_controls.ex`](./lib/galactic_trade_authority/changes/apply_transit_controls.ex)
 
@@ -138,8 +138,8 @@ attributes do
 end
 
 relationships do
-  belongs_to :planet, GalacticTradeAuthority.Planet, allow_nil?: false
-  belongs_to :resource, GalacticTradeAuthority.TradeResource, allow_nil?: false
+  belongs_to :planet, GalacticTradeAuthority.Resources.Planet, allow_nil?: false
+  belongs_to :resource, GalacticTradeAuthority.Resources.TradeResource, allow_nil?: false
 end
 ```
 

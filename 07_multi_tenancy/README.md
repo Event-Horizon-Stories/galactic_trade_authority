@@ -52,14 +52,14 @@ isolated places.
 
 The key modeling move is multitenancy on every official resource:
 
-- `GalacticTradeAuthority.Trader`
-- `GalacticTradeAuthority.Planet`
-- `GalacticTradeAuthority.TradeResource`
-- `GalacticTradeAuthority.PlanetRule`
-- `GalacticTradeAuthority.Contract`
-- `GalacticTradeAuthority.Shipment`
-- `GalacticTradeAuthority.ShadowReport`
-- `GalacticTradeAuthority.AuditRecord`
+- `GalacticTradeAuthority.Resources.Trader`
+- `GalacticTradeAuthority.Resources.Planet`
+- `GalacticTradeAuthority.Resources.TradeResource`
+- `GalacticTradeAuthority.Resources.PlanetRule`
+- `GalacticTradeAuthority.Resources.Contract`
+- `GalacticTradeAuthority.Resources.Shipment`
+- `GalacticTradeAuthority.Resources.ShadowReport`
+- `GalacticTradeAuthority.Resources.AuditRecord`
 
 The helper API also changes. Registration, investigative reads, and case-file
 queries now require a tenant so the caller has to name which bureaucracy they
@@ -86,16 +86,16 @@ The chapter 7 registry includes:
 The lesson implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
-- [`lib/galactic_trade_authority/trader.ex`](./lib/galactic_trade_authority/trader.ex)
-- [`lib/galactic_trade_authority/planet.ex`](./lib/galactic_trade_authority/planet.ex)
-- [`lib/galactic_trade_authority/trade_resource.ex`](./lib/galactic_trade_authority/trade_resource.ex)
-- [`lib/galactic_trade_authority/planet_rule.ex`](./lib/galactic_trade_authority/planet_rule.ex)
-- [`lib/galactic_trade_authority/contract.ex`](./lib/galactic_trade_authority/contract.ex)
-- [`lib/galactic_trade_authority/shipment.ex`](./lib/galactic_trade_authority/shipment.ex)
-- [`lib/galactic_trade_authority/shadow_report.ex`](./lib/galactic_trade_authority/shadow_report.ex)
-- [`lib/galactic_trade_authority/audit_record.ex`](./lib/galactic_trade_authority/audit_record.ex)
-- [`lib/galactic_trade_authority/rule_engine.ex`](./lib/galactic_trade_authority/rule_engine.ex)
-- [`lib/galactic_trade_authority/ledger_matcher.ex`](./lib/galactic_trade_authority/ledger_matcher.ex)
+- [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
+- [`lib/galactic_trade_authority/resources/planet.ex`](./lib/galactic_trade_authority/resources/planet.ex)
+- [`lib/galactic_trade_authority/resources/trade_resource.ex`](./lib/galactic_trade_authority/resources/trade_resource.ex)
+- [`lib/galactic_trade_authority/resources/planet_rule.ex`](./lib/galactic_trade_authority/resources/planet_rule.ex)
+- [`lib/galactic_trade_authority/resources/contract.ex`](./lib/galactic_trade_authority/resources/contract.ex)
+- [`lib/galactic_trade_authority/resources/shipment.ex`](./lib/galactic_trade_authority/resources/shipment.ex)
+- [`lib/galactic_trade_authority/resources/shadow_report.ex`](./lib/galactic_trade_authority/resources/shadow_report.ex)
+- [`lib/galactic_trade_authority/resources/audit_record.ex`](./lib/galactic_trade_authority/resources/audit_record.ex)
+- [`lib/galactic_trade_authority/rules/rule_engine.ex`](./lib/galactic_trade_authority/rules/rule_engine.ex)
+- [`lib/galactic_trade_authority/investigations/ledger_matcher.ex`](./lib/galactic_trade_authority/investigations/ledger_matcher.ex)
 - [`lib/galactic_trade_authority/changes/apply_regulatory_outcome.ex`](./lib/galactic_trade_authority/changes/apply_regulatory_outcome.ex)
 - [`lib/galactic_trade_authority/changes/classify_ledger_presence.ex`](./lib/galactic_trade_authority/changes/classify_ledger_presence.ex)
 - [`lib/galactic_trade_authority/validations/distinct_route.ex`](./lib/galactic_trade_authority/validations/distinct_route.ex)

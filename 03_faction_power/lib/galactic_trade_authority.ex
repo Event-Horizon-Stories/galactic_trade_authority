@@ -10,7 +10,7 @@ defmodule GalacticTradeAuthority do
   - restricted manifests require special actor clearance
   """
 
-  alias GalacticTradeAuthority.{Planet, PlanetRule, Shipment, TradeResource, Trader}
+  alias GalacticTradeAuthority.Resources.{Planet, PlanetRule, Shipment, TradeResource, Trader}
 
   @resources [Shipment, PlanetRule, TradeResource, Planet, Trader]
 

@@ -47,7 +47,7 @@ Chapter 2 taught local law.
 
 Chapter 3 teaches actor-dependent power.
 
-The core modeling move is that `GalacticTradeAuthority.Shipment` now has an authorizer and
+The core modeling move is that `GalacticTradeAuthority.Resources.Shipment` now has an authorizer and
 resource policies, while the chapter 2 route-law resources stay in place. Those
 policies do two different jobs:
 
@@ -79,12 +79,12 @@ The chapter 3 power model is:
 The lesson implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
-- [`lib/galactic_trade_authority/trader.ex`](./lib/galactic_trade_authority/trader.ex)
-- [`lib/galactic_trade_authority/planet.ex`](./lib/galactic_trade_authority/planet.ex)
-- [`lib/galactic_trade_authority/trade_resource.ex`](./lib/galactic_trade_authority/trade_resource.ex)
-- [`lib/galactic_trade_authority/planet_rule.ex`](./lib/galactic_trade_authority/planet_rule.ex)
-- [`lib/galactic_trade_authority/local_rules.ex`](./lib/galactic_trade_authority/local_rules.ex)
-- [`lib/galactic_trade_authority/shipment.ex`](./lib/galactic_trade_authority/shipment.ex)
+- [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
+- [`lib/galactic_trade_authority/resources/planet.ex`](./lib/galactic_trade_authority/resources/planet.ex)
+- [`lib/galactic_trade_authority/resources/trade_resource.ex`](./lib/galactic_trade_authority/resources/trade_resource.ex)
+- [`lib/galactic_trade_authority/resources/planet_rule.ex`](./lib/galactic_trade_authority/resources/planet_rule.ex)
+- [`lib/galactic_trade_authority/rules/local_rules.ex`](./lib/galactic_trade_authority/rules/local_rules.ex)
+- [`lib/galactic_trade_authority/resources/shipment.ex`](./lib/galactic_trade_authority/resources/shipment.ex)
 - [`lib/galactic_trade_authority.ex`](./lib/galactic_trade_authority.ex)
 
 The `Shipment` resource is the center of the chapter:
