@@ -31,7 +31,7 @@ ShadowMarket.ShadowReport.record!(%{
   report_number: "SR-5004",
   source_type: :seizure,
   resource_id: state.shadow_resource.id,
-  destination_planet_id: state.shadow_destination.id,
+  destination_planet_id: state.shadow_planet.id,
   notes: "Customs impounded crates without any valid GTA manifest."
 })
 ```

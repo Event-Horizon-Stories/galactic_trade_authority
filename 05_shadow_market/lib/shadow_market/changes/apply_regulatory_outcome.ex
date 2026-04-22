@@ -1,7 +1,7 @@
-defmodule ContractLoopholes.Changes.ApplyRegulatoryOutcome do
+defmodule ShadowMarket.Changes.ApplyRegulatoryOutcome do
   use Ash.Resource.Change
 
-  alias ContractLoopholes.RuleEngine
+  alias ShadowMarket.RuleEngine
 
   @impl true
   def change(changeset, _opts, _context) do

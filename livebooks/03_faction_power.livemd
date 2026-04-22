@@ -16,6 +16,7 @@ Mix.install([
 state = FactionPower.bootstrap_registry!()
 
 %{
+  standard_tax: state.guild_manifest.tax_due,
   authority:
     Enum.map(FactionPower.visible_manifests!(state.authority_actor), & &1.manifest_number),
   guild:

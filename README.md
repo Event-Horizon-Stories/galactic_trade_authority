@@ -48,12 +48,15 @@ ShadowMarket.Registry
 |- Trader
 |- Planet
 |- TradeResource
+|- PlanetRule
+|- Contract
 |- Shipment
 `- ShadowReport
 ```
 
-That shape keeps the official ledger narrow while adding a separate resource for
-evidence that never earned legal status.
+That shape shows the key tutorial rule: later chapters keep the previous
+official model and add the next source of pressure rather than replacing the
+domain each time.
 
 The repo root holds the series guide, helper scripts, and interactive notebooks.
 Each chapter owns its own code, dependencies, and tests.

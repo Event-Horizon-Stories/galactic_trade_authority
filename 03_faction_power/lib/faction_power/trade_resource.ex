@@ -1,11 +1,11 @@
-defmodule ContractLoopholes.TradeResource do
+defmodule FactionPower.TradeResource do
   use Ash.Resource,
-    domain: ContractLoopholes.Registry,
+    domain: FactionPower.Registry,
     data_layer: Ash.DataLayer.Ets
 
   ets do
     private?(false)
-    table(:gta_contract_loopholes_resources)
+    table(:gta_faction_power_resources)
   end
 
   actions do
@@ -33,7 +33,7 @@ defmodule ContractLoopholes.TradeResource do
     attribute :category, :atom do
       allow_nil?(false)
       public?(true)
-      constraints(one_of: [:essential, :industrial, :restricted])
+      constraints(one_of: [:essential, :industrial, :luxury, :restricted])
     end
 
     attribute :base_unit, :string do
@@ -50,7 +50,7 @@ defmodule ContractLoopholes.TradeResource do
   end
 
   relationships do
-    has_many :planet_rules, ContractLoopholes.PlanetRule do
+    has_many :planet_rules, FactionPower.PlanetRule do
       destination_attribute(:resource_id)
       public?(true)
     end

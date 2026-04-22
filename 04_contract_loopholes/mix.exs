@@ -19,7 +19,8 @@ defmodule ContractLoopholes.MixProject do
 
   defp deps do
     [
-      {:ash, "~> 3.0"}
+      {:ash, "~> 3.0"},
+      {:simple_sat, "~> 0.1"}
     ]
   end
 end

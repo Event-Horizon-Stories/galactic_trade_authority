@@ -1,5 +1,5 @@
-defmodule ContractLoopholes.RuleEngine do
-  alias ContractLoopholes.{Contract, Planet, PlanetRule, TradeResource}
+defmodule ShadowMarket.RuleEngine do
+  alias ShadowMarket.{Contract, Planet, PlanetRule, TradeResource}
 
   def evaluate(params) do
     route_rules =

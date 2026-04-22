@@ -72,6 +72,7 @@ The shadow report resource is different:
 
 We will create:
 
+- the full official ledger from chapter 4
 - a strict `Shipment` resource for the official ledger
 - a `ShadowReport` resource for off-ledger evidence
 - a matcher that classifies reports as `:matched`, `:unmatched`, or `:contradicted`
@@ -91,10 +92,15 @@ The lesson implementation lives in:
 - [`lib/shadow_market/trader.ex`](./lib/shadow_market/trader.ex)
 - [`lib/shadow_market/planet.ex`](./lib/shadow_market/planet.ex)
 - [`lib/shadow_market/trade_resource.ex`](./lib/shadow_market/trade_resource.ex)
+- [`lib/shadow_market/planet_rule.ex`](./lib/shadow_market/planet_rule.ex)
+- [`lib/shadow_market/contract.ex`](./lib/shadow_market/contract.ex)
 - [`lib/shadow_market/shipment.ex`](./lib/shadow_market/shipment.ex)
+- [`lib/shadow_market/rule_engine.ex`](./lib/shadow_market/rule_engine.ex)
 - [`lib/shadow_market/shadow_report.ex`](./lib/shadow_market/shadow_report.ex)
+- [`lib/shadow_market/changes/apply_regulatory_outcome.ex`](./lib/shadow_market/changes/apply_regulatory_outcome.ex)
 - [`lib/shadow_market/ledger_matcher.ex`](./lib/shadow_market/ledger_matcher.ex)
 - [`lib/shadow_market/changes/classify_ledger_presence.ex`](./lib/shadow_market/changes/classify_ledger_presence.ex)
+- [`lib/shadow_market/validations/distinct_route.ex`](./lib/shadow_market/validations/distinct_route.ex)
 - [`lib/shadow_market/validations/require_structured_lead.ex`](./lib/shadow_market/validations/require_structured_lead.ex)
 - [`lib/shadow_market.ex`](./lib/shadow_market.ex)
 
@@ -158,12 +164,16 @@ state = ShadowMarket.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/shadow_market_test.exs`](./test/shadow_market_test.exs) prove four things:
+The lesson tests in [`test/shadow_market_test.exs`](./test/shadow_market_test.exs) prove eight things:
 
+- official taxed shipments still behave like chapter 4 shipments
+- contract-permitted restricted shipments still work
+- official manifest visibility is still filtered by faction
 - off-ledger evidence can exist without any official shipment match
 - evidence can reconcile to an official shipment without mutating the shipment
 - contradictory evidence is preserved and flagged instead of discarded
 - even a soft evidence model still needs one structured lead
+- suspended actors still cannot create official shipment records
 
 Those results matter because the GTA must now track uncertainty without lying
 about certainty.
@@ -191,6 +201,7 @@ resource with explicit soft constraints and explicit classification.
 
 The GTA can now:
 
+- keep the official ledger from chapter 4 intact
 - keep official shipments strict and legally complete
 - store off-ledger evidence with partial context
 - reconcile reports to known shipments when possible

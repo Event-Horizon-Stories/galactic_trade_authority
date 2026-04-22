@@ -1,11 +1,11 @@
-defmodule ShadowMarket.Trader do
+defmodule ShadowMarket.PlanetRule do
   use Ash.Resource,
     domain: ShadowMarket.Registry,
     data_layer: Ash.DataLayer.Ets
 
   ets do
     private?(false)
-    table(:gta_shadow_market_traders)
+    table(:gta_shadow_market_rules)
   end
 
   actions do
@@ -13,7 +13,7 @@ defmodule ShadowMarket.Trader do
 
     create :register do
       primary?(true)
-      accept([:callsign, :faction, :reputation, :status, :override_clearance])
+      accept([:direction, :effect, :tax_rate, :rationale, :planet_id, :resource_id])
     end
   end
 
@@ -25,36 +25,40 @@ defmodule ShadowMarket.Trader do
   attributes do
     uuid_primary_key(:id)
 
-    attribute :callsign, :string do
+    attribute :direction, :atom do
       allow_nil?(false)
       public?(true)
-      constraints(min_length: 3)
+      constraints(one_of: [:import, :export])
     end
 
-    attribute :faction, :atom do
+    attribute :effect, :atom do
       allow_nil?(false)
       public?(true)
-      constraints(one_of: [:authority, :guild, :syndicate])
+      constraints(one_of: [:tax, :ban])
     end
 
-    attribute :reputation, :integer do
-      allow_nil?(false)
+    attribute :tax_rate, :integer do
       public?(true)
-      default(0)
       constraints(min: 0, max: 100)
     end
 
-    attribute :status, :atom do
+    attribute :rationale, :string do
       allow_nil?(false)
       public?(true)
-      default(:registered)
-      constraints(one_of: [:registered, :suspended])
+    end
+  end
+
+  relationships do
+    belongs_to :planet, ShadowMarket.Planet do
+      allow_nil?(false)
+      attribute_writable?(true)
+      public?(true)
     end
 
-    attribute :override_clearance, :boolean do
+    belongs_to :resource, ShadowMarket.TradeResource do
       allow_nil?(false)
+      attribute_writable?(true)
       public?(true)
-      default(false)
     end
   end
 end

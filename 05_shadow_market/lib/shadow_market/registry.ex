@@ -5,6 +5,8 @@ defmodule ShadowMarket.Registry do
     resource(ShadowMarket.Trader)
     resource(ShadowMarket.Planet)
     resource(ShadowMarket.TradeResource)
+    resource(ShadowMarket.PlanetRule)
+    resource(ShadowMarket.Contract)
     resource(ShadowMarket.Shipment)
     resource(ShadowMarket.ShadowReport)
   end

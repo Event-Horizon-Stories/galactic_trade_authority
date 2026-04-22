@@ -41,9 +41,9 @@ The Authority does not admit this as corruption. It calls it authorized exceptio
 
 ## The Ash Concept
 
-Chapter 3 taught actor-based power.
+Chapter 3 taught actor-based power on top of route law.
 
-Chapter 4 teaches negotiated override logic.
+Chapter 4 keeps that full legal model and teaches negotiated override logic.
 
 The core modeling move is a new resource:
 
@@ -67,7 +67,8 @@ resource-level validation.
 We will create:
 
 - a `Contract` resource for override agreements
-- a shipment action that evaluates route restrictions and matching contracts
+- the same route-law and actor-policy layers from chapter 3
+- shipment actions that evaluate route restrictions, actor policies, and matching contracts
 - derived financial and legal fields that explain how the final record was reached
 
 The chapter 4 override model includes:
@@ -88,14 +89,13 @@ The lesson implementation lives in:
 - [`lib/contract_loopholes/contract.ex`](./lib/contract_loopholes/contract.ex)
 - [`lib/contract_loopholes/shipment.ex`](./lib/contract_loopholes/shipment.ex)
 - [`lib/contract_loopholes/rule_engine.ex`](./lib/contract_loopholes/rule_engine.ex)
+- [`lib/contract_loopholes/validations/distinct_route.ex`](./lib/contract_loopholes/validations/distinct_route.ex)
 - [`lib/contract_loopholes.ex`](./lib/contract_loopholes.ex)
 
 The `Shipment` action is the center of the chapter:
 
 ```elixir
-create :register do
-  primary? true
-
+create :register_standard_with_contract do
   accept [
     :manifest_number,
     :quantity,
@@ -103,7 +103,8 @@ create :register do
     :trader_id,
     :origin_planet_id,
     :destination_planet_id,
-    :resource_id
+    :resource_id,
+    :contract_id
   ]
 
   validate match(:manifest_number, ~r/^GTA-\d{4}$/)
@@ -111,6 +112,8 @@ create :register do
   validate compare(:declared_value, greater_than_or_equal_to: 0)
 
   change ContractLoopholes.Changes.ApplyRegulatoryOutcome
+  change set_attribute(:secrecy_level, :standard)
+  change set_attribute(:corridor, :civil)
 end
 ```
 
@@ -149,12 +152,14 @@ state = ContractLoopholes.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/contract_loopholes_test.exs`](./test/contract_loopholes_test.exs) prove four things:
+The lesson tests in [`test/contract_loopholes_test.exs`](./test/contract_loopholes_test.exs) prove six things:
 
 - standard water shipments still pay Mars import tax
 - a matching exemption contract zeroes out that tax
 - a restricted shipment can become legal through a permit contract
+- read policies still filter civil and shadow manifests by faction
 - a restricted shipment without a matching contract is rejected
+- suspended actors still cannot create shipment records
 
 Those results matter because the ledger now has to preserve not just the baseline
 law, but the reason the baseline law stopped winning.
@@ -182,6 +187,7 @@ conditionals because they keep the override visible, queryable, and testable.
 
 The GTA can now:
 
+- keep route law and actor authorization from earlier chapters
 - store formal override documents as first-class resources
 - compute tax exemptions from matching contracts
 - legalize restricted cargo through explicit permits

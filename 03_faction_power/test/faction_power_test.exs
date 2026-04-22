@@ -31,6 +31,22 @@ defmodule FactionPowerTest do
              ])
   end
 
+  test "guild actors still register taxed legal shipments under local law" do
+    %{guild_manifest: guild_manifest, applied_rules: applied_rules} =
+      FactionPower.bootstrap_registry!()
+
+    assert guild_manifest.tax_due == 1_000
+    assert guild_manifest.route_classification == :locally_adjusted
+    assert guild_manifest.corridor == :civil
+    assert guild_manifest.compliance_summary =~ "Titan export tax"
+    assert guild_manifest.compliance_summary =~ "Mars import tax"
+
+    assert Enum.map(applied_rules, & &1.rationale) == [
+             "Titan ice extraction duty",
+             "Mars aquifer restoration levy"
+           ]
+  end
+
   test "guild actors only see civil manifests plus their own" do
     %{guild_actor: guild_actor, guild_manifest: guild_manifest, peer_manifest: peer_manifest} =
       FactionPower.bootstrap_registry!()
@@ -44,15 +60,23 @@ defmodule FactionPowerTest do
   end
 
   test "cleared syndicate actors can create restricted manifests" do
-    %{syndicate_actor: syndicate_actor} = FactionPower.bootstrap_registry!()
+    %{
+      syndicate_actor: syndicate_actor,
+      origin_planet: origin_planet,
+      destination_planet: destination_planet,
+      restricted_resource: restricted_resource
+    } = FactionPower.bootstrap_registry!()
 
     shipment =
       Shipment.register_restricted!(
         %{
           manifest_number: "GTA-3004",
-          cargo_name: "sealed_archives",
+          quantity: 4,
           declared_value: 9_500,
-          trader_id: syndicate_actor.id
+          trader_id: syndicate_actor.id,
+          origin_planet_id: origin_planet.id,
+          destination_planet_id: destination_planet.id,
+          resource_id: restricted_resource.id
         },
         actor: syndicate_actor
       )
@@ -61,8 +85,37 @@ defmodule FactionPowerTest do
     assert shipment.corridor == :shadow
   end
 
+  test "planetary bans still reject shipments before authorization can make them real" do
+    %{
+      authority_actor: authority_actor,
+      origin_planet: origin_planet,
+      blocked_planet: blocked_planet,
+      blocked_resource: blocked_resource
+    } = FactionPower.bootstrap_registry!()
+
+    assert_raise Ash.Error.Invalid, ~r/Europa import/, fn ->
+      Shipment.register_standard!(
+        %{
+          manifest_number: "GTA-3006",
+          quantity: 4,
+          declared_value: 12_000,
+          trader_id: authority_actor.id,
+          origin_planet_id: origin_planet.id,
+          destination_planet_id: blocked_planet.id,
+          resource_id: blocked_resource.id
+        },
+        actor: authority_actor
+      )
+    end
+  end
+
   test "suspended actors cannot read or create manifests" do
-    %{suspended_actor: suspended_actor} = FactionPower.bootstrap_registry!()
+    %{
+      suspended_actor: suspended_actor,
+      origin_planet: origin_planet,
+      destination_planet: destination_planet,
+      untaxed_resource: untaxed_resource
+    } = FactionPower.bootstrap_registry!()
 
     assert_raise Forbidden, fn ->
       FactionPower.visible_manifests!(suspended_actor)
@@ -72,9 +125,12 @@ defmodule FactionPowerTest do
       Shipment.register_standard!(
         %{
           manifest_number: "GTA-3005",
-          cargo_name: "fuel_cells",
+          quantity: 9,
           declared_value: 1_800,
-          trader_id: suspended_actor.id
+          trader_id: suspended_actor.id,
+          origin_planet_id: origin_planet.id,
+          destination_planet_id: destination_planet.id,
+          resource_id: untaxed_resource.id
         },
         actor: suspended_actor
       )
