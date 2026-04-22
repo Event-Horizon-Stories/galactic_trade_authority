@@ -17,6 +17,7 @@ Livebook companions for the series live in [`livebooks/`](./livebooks/README.md)
 - [`livebooks/03_faction_power.livemd`](./livebooks/03_faction_power.livemd)
 - [`livebooks/04_contract_loopholes.livemd`](./livebooks/04_contract_loopholes.livemd)
 - [`livebooks/05_shadow_market.livemd`](./livebooks/05_shadow_market.livemd)
+- [`livebooks/06_investigation.livemd`](./livebooks/06_investigation.livemd)
 
 ## The Journey
 
@@ -38,20 +39,24 @@ advance together:
 5. [`05_shadow_market`](./05_shadow_market/README.md)
    Off-ledger evidence diverges from official truth, and the reader learns
    optional relationships, soft constraints, and discrepancy classification.
+6. [`06_investigation`](./06_investigation/README.md)
+   The Authority reconstructs who approved and who later challenged a manifest,
+   and the reader learns audit resources, history, and derived case views.
 
 ## Current System Shape
 
-By chapter 5 the Authority looks like this:
+By chapter 6 the Authority looks like this:
 
 ```text
-ShadowMarket.Registry
+Investigation.Registry
 |- Trader
 |- Planet
 |- TradeResource
 |- PlanetRule
 |- Contract
 |- Shipment
-`- ShadowReport
+|- ShadowReport
+`- AuditRecord
 ```
 
 That shape shows the key tutorial rule: later chapters keep the previous
@@ -76,7 +81,8 @@ Begin with [`01_order`](./01_order/README.md), then continue through
 [`02_planetary_law`](./02_planetary_law/README.md) and
 [`03_faction_power`](./03_faction_power/README.md), then
 [`04_contract_loopholes`](./04_contract_loopholes/README.md), then
-[`05_shadow_market`](./05_shadow_market/README.md).
+[`05_shadow_market`](./05_shadow_market/README.md), then
+[`06_investigation`](./06_investigation/README.md).
 
 The early chapters establish the core GTA rule:
 
