@@ -22,6 +22,7 @@ Livebook companions for the series live in [`livebooks/`](./livebooks/README.md)
 - [`livebooks/04_contract_loopholes.livemd`](./livebooks/04_contract_loopholes.livemd)
 - [`livebooks/05_shadow_market.livemd`](./livebooks/05_shadow_market.livemd)
 - [`livebooks/06_investigation.livemd`](./livebooks/06_investigation.livemd)
+- [`livebooks/07_multi_tenancy.livemd`](./livebooks/07_multi_tenancy.livemd)
 
 ## The Journey
 
@@ -46,33 +47,48 @@ advance together:
 6. [`06_investigation`](./06_investigation/README.md)
    The Authority reconstructs who approved and who later challenged a manifest,
    and the reader learns audit resources, history, and derived case views.
+7. [`07_multi_tenancy`](./07_multi_tenancy/README.md)
+   The same Authority expands across isolated sectors, and the reader learns
+   multitenancy, tenant-scoped reads, and tenant-aware rule evaluation.
 
 ## Final Authority Shape
 
-By chapter 6 the Authority looks like this:
+By the end of the tutorial, the Authority looks roughly like this:
 
 ```text
-GalacticTradeAuthority.Registry
-|- Trader
-|- Planet
-|- TradeResource
-|- PlanetRule
-|- Contract
-|- Shipment
-|- ShadowReport
-`- AuditRecord
+Sector Tenant ("sol")
+`- GalacticTradeAuthority.Registry
+   |- Trader
+   |- Planet
+   |- TradeResource
+   |- PlanetRule
+   |- Contract
+   |- Shipment
+   |- ShadowReport
+   `- AuditRecord
+
+Sector Tenant ("perseus")
+`- GalacticTradeAuthority.Registry
+   |- Trader
+   |- Planet
+   |- TradeResource
+   |- PlanetRule
+   |- Contract
+   |- Shipment
+   |- ShadowReport
+   `- AuditRecord
 ```
 
-That shape shows the key tutorial rule: later chapters keep the previous
-official model and add the next source of pressure rather than replacing the
-domain each time.
+That shape is intentionally repetitive. The point of the last chapter is that
+the same law engine can run more than once without the sectors sharing official
+truth by accident.
 
 The repo root holds the series guide, helper scripts, and interactive notebooks.
 Each chapter owns its own code, dependencies, and tests.
 
 ## Beyond the Series
 
-The first five chapters already cover the core Ash arc this series needs:
+The seven main chapters already cover the core Ash arc this series needs:
 
 - resources and actions
 - validations and explicit state boundaries
@@ -80,16 +96,11 @@ The first five chapters already cover the core Ash arc this series needs:
 - policies and actor-dependent visibility
 - layered rule evaluation and contractual exceptions
 - soft constraints around parallel evidence models
+- audit timelines and derived case views
+- multitenancy and sector isolation
 
-Ash still has a few deeper branches that could become later chapters or bonus
-appendices:
+Ash still has a few deeper branches that could become appendices later:
 
-- **Investigation and audit history**: the natural next step once reports and
-  official manifests start disagreeing. This is where audit records, approval
-  chains, and derived investigative views become first-class.
-- **Multi-tenancy**: once the Authority expands across sectors or galaxies, the
-  same law engine needs isolated data, isolated policy surfaces, and local rule
-  variation without collapsing into a single shared ledger.
 - **Interfaces and APIs**: after the domain model is stable, an API or admin UI
   chapter could show how Ash exposes the existing law engine outward without
   relocating the business rules.

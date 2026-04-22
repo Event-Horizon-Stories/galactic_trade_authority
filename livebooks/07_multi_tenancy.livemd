@@ -1,0 +1,65 @@
+# Lesson 07 Livebook: Multi-Tenancy
+
+This notebook keeps chapter 7 focused on the next GTA failure:
+
+> one bureaucracy is no longer enough
+
+```elixir
+Mix.install([
+  {:galactic_trade_authority, path: "../07_multi_tenancy"}
+])
+```
+
+## Build Two Isolated Sectors
+
+```elixir
+state = GalacticTradeAuthority.bootstrap_registry!()
+
+%{
+  sol_manifest: state.primary.standard_water_shipment.manifest_number,
+  sol_tax: state.primary.standard_water_shipment.tax_due,
+  perseus_manifest: state.secondary.standard_water_shipment.manifest_number,
+  perseus_tax: state.secondary.standard_water_shipment.tax_due
+}
+```
+
+## Compare Tenant-Scoped Investigations
+
+```elixir
+%{
+  sol: GalacticTradeAuthority.audit_trail_for_manifest!("GTA-4004", state.primary_tenant),
+  perseus: GalacticTradeAuthority.audit_trail_for_manifest!("GTA-4004", state.secondary_tenant)
+}
+```
+
+## Record Another Sector-Specific Report
+
+```elixir
+report =
+  GalacticTradeAuthority.record_shadow_report!(
+    %{
+      report_number: "SR-5004",
+      source_type: :informant,
+      reported_manifest: state.primary.investigated_shipment.manifest_number,
+      trader_id: state.primary.syndicate_actor.id,
+      resource_id: state.primary.shadow_resource.id,
+      origin_planet_id: state.primary.origin_planet.id,
+      destination_planet_id: state.primary.restricted_planet.id,
+      notes: "Anonymous source claims a second unauthorized crate was unloaded."
+    },
+    state.primary.investigator_actor,
+    state.primary_tenant
+  )
+
+%{
+  status: report.ledger_status,
+  latest_timeline:
+    GalacticTradeAuthority.audit_trail_for_manifest!(
+      state.primary.investigated_shipment.manifest_number,
+      state.primary_tenant
+    )
+}
+```
+
+Chapter 7 is not adding new law. It is forcing the same law engine to stay
+honest when two sectors reuse the same paperwork patterns without sharing truth.
