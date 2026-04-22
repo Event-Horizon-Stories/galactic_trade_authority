@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Validations.AllowedByPlanetaryLaw do
+  @moduledoc """
+  Rejects shipments blocked by destination or origin law.
+
+  This validation turns a route-specific ban into a normal Ash validation error,
+  which keeps the legal boundary in the action instead of in ad hoc callers.
+  """
+
   use Ash.Resource.Validation
 
   alias GalacticTradeAuthority.LocalRules

@@ -1,4 +1,12 @@
 defmodule GalacticTradeAuthority.ShadowReport do
+  @moduledoc """
+  A structured report about suspicious trade activity outside the clean ledger.
+
+  The Authority still keeps shipments strict in chapter 5. Shadow reports model
+  the evidence that something happened even when the official registry is silent
+  or internally inconsistent.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

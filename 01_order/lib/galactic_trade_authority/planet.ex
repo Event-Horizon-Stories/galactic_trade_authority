@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Planet do
+  @moduledoc """
+  A planet recognized by the Authority.
+
+  Chapter 1 treats every planet as if it participates in one shared trade
+  regime. Later lessons keep this resource but attach local law to it.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

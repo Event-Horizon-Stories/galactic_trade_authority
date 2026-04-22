@@ -1,5 +1,10 @@
 defmodule GalacticTradeAuthority.LedgerMatcher do
-  @moduledoc false
+  @moduledoc """
+  Compares a shadow report with the official shipment ledger.
+
+  The matcher answers whether the report has no official counterpart, cleanly
+  matches one shipment, or contradicts the stored record on key fields.
+  """
 
   alias GalacticTradeAuthority.Shipment
 
@@ -11,6 +16,9 @@ defmodule GalacticTradeAuthority.LedgerMatcher do
     {:destination_planet_id, :destination_planet_id, "destination"}
   ]
 
+  @doc """
+  Classifies a report as unmatched, matched, or contradicted.
+  """
   def classify(params) do
     case find_shipment(params) do
       nil ->

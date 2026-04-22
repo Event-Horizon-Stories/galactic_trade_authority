@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.AuditRecord do
+  @moduledoc """
+  A timeline event in the Authority's official investigation trail.
+
+  Audit records connect actors, shipments, and shadow reports so chapter 6 can
+  reconstruct who approved a manifest and who later challenged it.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

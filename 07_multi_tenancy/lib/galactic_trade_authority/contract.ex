@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Contract do
+  @moduledoc """
+  A tenant-scoped override that can bend route law for a specific trader.
+
+  Contracts persist from earlier chapters, but chapter 7 makes clear that one
+  tenant's loophole cannot authorize another tenant's shipment.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

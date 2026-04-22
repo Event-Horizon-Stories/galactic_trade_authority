@@ -1,4 +1,8 @@
 defmodule GalacticTradeAuthority.Validations.RequireStructuredLead do
+  @moduledoc """
+  Requires enough structured evidence to investigate a tenant-scoped report.
+  """
+
   use Ash.Resource.Validation
 
   @lead_fields [

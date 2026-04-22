@@ -1,4 +1,8 @@
 defmodule GalacticTradeAuthority.Validations.DistinctRoute do
+  @moduledoc """
+  Rejects manifests that declare the same origin and destination.
+  """
+
   use Ash.Resource.Validation
 
   @impl true

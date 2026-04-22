@@ -1,4 +1,8 @@
 defmodule GalacticTradeAuthority.Changes.ApplyRegulatoryOutcome do
+  @moduledoc """
+  Applies the tenant-scoped regulatory outcome to a shipment changeset.
+  """
+
   use Ash.Resource.Change
 
   alias GalacticTradeAuthority.RuleEngine
@@ -17,6 +21,7 @@ defmodule GalacticTradeAuthority.Changes.ApplyRegulatoryOutcome do
     outcome = RuleEngine.evaluate(params, changeset.tenant)
 
     if outcome.route_decision == :blocked do
+      # A blocked route never crosses the tenant's legal boundary into storage.
       Ash.Changeset.add_error(
         changeset,
         field: :resource_id,

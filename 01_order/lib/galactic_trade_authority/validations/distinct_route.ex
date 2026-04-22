@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Validations.DistinctRoute do
+  @moduledoc """
+  Rejects manifests that declare the same origin and destination.
+
+  The rule is simple, but it demonstrates that custom Ash validations can
+  enforce domain-specific legality instead of only generic field constraints.
+  """
+
   use Ash.Resource.Validation
 
   @impl true

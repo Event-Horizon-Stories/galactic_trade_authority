@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Changes.ApplyTransitControls do
+  @moduledoc """
+  Applies the tax and compliance consequences of local route law.
+
+  The change runs during shipment registration so the manifest is stored with
+  the exact tax due and summary produced by the applicable planetary rules.
+  """
+
   use Ash.Resource.Change
 
   alias GalacticTradeAuthority.LocalRules
@@ -26,6 +33,8 @@ defmodule GalacticTradeAuthority.Changes.ApplyTransitControls do
       LocalRules.rule_summary(origin_planet_id, destination_planet_id, resource_id)
       |> Enum.join("; ")
 
+    # Store the derived outcome on the shipment so later reads see the official
+    # route decision without recomputing the law every time.
     changeset
     |> Ash.Changeset.change_attribute(:tax_due, tax_due)
     |> Ash.Changeset.change_attribute(:route_classification, classification)

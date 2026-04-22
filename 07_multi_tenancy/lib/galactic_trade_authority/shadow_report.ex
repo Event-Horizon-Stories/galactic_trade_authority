@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.ShadowReport do
+  @moduledoc """
+  A tenant-scoped report about suspicious or off-ledger movement.
+
+  Reports still compare observed activity to official shipments, but chapter 7
+  ensures they only compare against evidence from the same tenant.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

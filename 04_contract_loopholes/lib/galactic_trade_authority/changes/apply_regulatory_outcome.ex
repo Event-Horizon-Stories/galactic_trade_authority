@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Changes.ApplyRegulatoryOutcome do
+  @moduledoc """
+  Writes the contract-aware regulatory outcome onto a shipment changeset.
+
+  This keeps the action as the point where the manifest is judged. If the route
+  is still blocked after considering contracts, the shipment never becomes real.
+  """
+
   use Ash.Resource.Change
 
   alias GalacticTradeAuthority.RuleEngine
@@ -17,6 +24,8 @@ defmodule GalacticTradeAuthority.Changes.ApplyRegulatoryOutcome do
     outcome = RuleEngine.evaluate(params)
 
     if outcome.route_decision == :blocked do
+      # A blocked route stays outside the ledger. The action should fail rather
+      # than persisting a shipment that the Authority considers impossible.
       Ash.Changeset.add_error(
         changeset,
         field: :resource_id,

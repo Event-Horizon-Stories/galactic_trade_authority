@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.AuditRecord do
+  @moduledoc """
+  A tenant-scoped investigation event.
+
+  Audit records remain the traceability layer from chapter 6, now isolated so
+  each tenant can reconstruct its own chain of approval and dispute.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

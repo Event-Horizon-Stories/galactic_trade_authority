@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.TradeResource do
+  @moduledoc """
+  A category of goods the Authority knows how to classify.
+
+  The opening lesson keeps resource legality simple so the learner can focus on
+  how Ash models data shape and sanctioned create actions.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

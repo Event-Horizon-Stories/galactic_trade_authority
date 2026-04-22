@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Validations.RequireStructuredLead do
+  @moduledoc """
+  Requires at least one structured clue on a shadow report.
+
+  Free-form notes are not enough for the Authority to investigate. The report
+  needs a manifest, shipment, trader, resource, or route anchor.
+  """
+
   use Ash.Resource.Validation
 
   @lead_fields [

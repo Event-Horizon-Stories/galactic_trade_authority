@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Changes.ClassifyLedgerPresence do
+  @moduledoc """
+  Derives the ledger status for a shadow report before it is stored.
+
+  This turns partial evidence into one of the chapter 5 outcomes: unmatched,
+  matched, or contradicted.
+  """
+
   use Ash.Resource.Change
 
   @impl true
@@ -14,6 +21,8 @@ defmodule GalacticTradeAuthority.Changes.ClassifyLedgerPresence do
       }
       |> GalacticTradeAuthority.LedgerMatcher.classify()
 
+    # Persist the derived status so investigators can query reports without
+    # replaying the comparison logic later.
     changeset
     |> Ash.Changeset.change_attribute(:ledger_status, result.ledger_status)
     |> Ash.Changeset.change_attribute(:report_summary, result.report_summary)
