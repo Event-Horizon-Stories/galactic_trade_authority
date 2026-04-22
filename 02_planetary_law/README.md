@@ -9,15 +9,12 @@ Mars taxes imported water. Europa bans imported AI chips. Titan charges export
 fees on ice shipments. The manifest alone is no longer enough. A shipment now has
 to survive its route.
 
-This chapter introduces the first collapse of the clean registry from lesson 1.
-Global rules are no longer sufficient because the law depends on where goods come
-from and where they are going.
+The clean registry collapses here. Global rules are no longer sufficient because
+the law depends on where goods come from and where they are going.
 
 Interactive companion: [`../livebooks/02_planetary_law.livemd`](../livebooks/02_planetary_law.livemd)
 
-## What You'll Learn
-
-By the end of this lesson, you should understand:
+## What Changes
 
 - how Ash relationships let local rules point at planets and resources
 - how custom validations can reject shipments based on related domain state
@@ -38,11 +35,9 @@ Reality now resists that simplicity:
 
 The GTA responds the only way it knows how: it turns local law into system law.
 
-## The Ash Concept
+## Under The Hood
 
-Chapter 1 taught the registry.
-
-Chapter 2 teaches route-aware legality.
+The registry no longer gets to judge a shipment from its manifest alone.
 
 The core modeling move is a new resource:
 
@@ -63,9 +58,9 @@ That split matters.
 Some local rules make a shipment impossible. Others keep the shipment legal but
 change the official financial truth recorded about it.
 
-## What We're Building
+## Authority Changes
 
-We will create:
+The Authority adds:
 
 - a `PlanetRule` resource for local import/export law
 - a shipment validation that rejects locally banned routes
@@ -85,7 +80,7 @@ That lets one resource reveal three different legal outcomes:
 
 ## The Code
 
-The lesson implementation lives in:
+The implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
 - [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
@@ -149,7 +144,7 @@ before declaring a manifest real.
 
 ## Trying It Out
 
-Run the lesson:
+Run the chapter:
 
 ```bash
 cd 02_planetary_law
@@ -157,7 +152,7 @@ mix deps.get
 mix test
 ```
 
-You can also inspect the chapter in `iex`:
+You can also inspect it in `iex`:
 
 ```bash
 cd 02_planetary_law
@@ -180,7 +175,7 @@ state = GalacticTradeAuthority.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove four things:
+The tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove four things:
 
 - a taxed water shipment is accepted and rewritten with local duties
 - an AI chip shipment into Europa is rejected
@@ -201,9 +196,9 @@ The GTA now has to answer:
 - is the shipment still legal if it survives?
 - if it survives, what new cost becomes official truth?
 
-Once those questions appear, the lesson stops being CRUD.
+Once those questions appear, the registry stops being CRUD.
 
-## Ash Takeaway
+## What Holds
 
 Ash gets sharper when one action can combine:
 
@@ -212,7 +207,7 @@ Ash gets sharper when one action can combine:
 - domain-specific rejection
 - domain-specific mutation
 
-Chapter 2 is the first time the registry behaves like a law engine instead of a
+This is the first time the registry behaves like a law engine instead of a
 typed form handler.
 
 ## What the Authority Can Do Now
@@ -232,6 +227,6 @@ A guild trader, an Authority inspector, and a syndicate proxy still hit the same
 rules in the same way. The moment power starts changing what different actors can
 see or do, chapter 2 stops being enough.
 
-## Next Lesson
+## Next Shift
 
-Lesson 3 will introduce faction power.
+Next, faction power starts changing who the registry belongs to.

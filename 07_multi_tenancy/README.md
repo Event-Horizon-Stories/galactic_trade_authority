@@ -9,14 +9,11 @@ The system can now explain one bureaucracy.
 
 It still assumes there is only one bureaucracy.
 
-In this lesson, we keep the full investigation-era ledger and make it operate
-across isolated sectors.
+Now the full investigation-era ledger has to operate across isolated sectors.
 
 Interactive companion: [`../livebooks/07_multi_tenancy.livemd`](../livebooks/07_multi_tenancy.livemd)
 
-## What You'll Learn
-
-By the end of this lesson, you should understand:
+## What Changes
 
 - how to apply Ash multitenancy with `strategy(:context)`
 - how tenant-scoped reads and writes keep identical manifests from colliding
@@ -43,12 +40,10 @@ The law engine still works.
 
 The assumption of one global ledger does not.
 
-## The Ash Concept
+## Under The Hood
 
-Chapter 6 taught the GTA how to explain one official history.
-
-Chapter 7 teaches the system how to repeat that same history shape in multiple
-isolated places.
+The GTA already knows how to explain one official history. What changes is that
+the same history shape now has to repeat in multiple isolated places.
 
 The key modeling move is multitenancy on every official resource:
 
@@ -65,9 +60,9 @@ The helper API also changes. Registration, investigative reads, and case-file
 queries now require a tenant so the caller has to name which bureaucracy they
 mean.
 
-## What We're Building
+## Authority Changes
 
-We will create:
+The Authority adds:
 
 - the full chapter 6 ledger from the previous lesson
 - multitenant Ash resources using context-based tenancy
@@ -83,7 +78,7 @@ The chapter 7 registry includes:
 
 ## The Code
 
-The lesson implementation lives in:
+The implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
 - [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
@@ -102,7 +97,7 @@ The lesson implementation lives in:
 - [`lib/galactic_trade_authority/validations/require_structured_lead.ex`](./lib/galactic_trade_authority/validations/require_structured_lead.ex)
 - [`lib/galactic_trade_authority.ex`](./lib/galactic_trade_authority.ex)
 
-The new chapter-wide center is the multitenancy declaration on each resource:
+The new center is the multitenancy declaration on each resource:
 
 ```elixir
 use Ash.Resource,
@@ -135,8 +130,8 @@ def case_file_for_manifest!(manifest, tenant) do
 end
 ```
 
-That is the chapter 7 point in one function: even investigation helpers must say
-which Authority instance they are querying.
+That is the point in one function: even investigation helpers must say which
+Authority instance they are querying.
 
 The bootstrap also shows why this matters:
 
@@ -160,7 +155,7 @@ The sectors share code. They do not share state.
 
 ## Trying It Out
 
-Run the lesson:
+Run the chapter:
 
 ```bash
 cd 07_multi_tenancy
@@ -168,7 +163,7 @@ mix deps.get
 mix test
 ```
 
-You can also inspect the chapter in `iex`:
+You can also inspect it in `iex`:
 
 ```bash
 cd 07_multi_tenancy
@@ -193,7 +188,7 @@ outcomes.
 
 ## What the Tests Prove
 
-The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove eight things:
+The tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove eight things:
 
 - the chapter 6 official ledger still works inside a tenant
 - contract-permitted restricted shipments still survive in a tenant
@@ -222,21 +217,7 @@ That is not just scale.
 
 It is institutional isolation.
 
-## Why We Are Not Using One Shared Ledger
-
-We could model sectors with a plain `sector` attribute and manually thread that
-through every read filter.
-
-We are deliberately not doing that here.
-
-This lesson is about teaching that sector identity is part of the resource
-contract itself. Ash multitenancy makes that boundary harder to forget and
-harder to bypass accidentally.
-
-The story needs that pressure. A hidden sector filter would make the chapter
-look simpler than it really is.
-
-## Ash Takeaway
+## What Holds
 
 Ash remains useful when the domain shifts from "what is allowed?" and "who
 approved it?" to "which isolated bureaucracy owns this reality?" Multitenancy
@@ -259,7 +240,7 @@ The system can now scale the bureaucracy cleanly.
 
 It still lives entirely in memory.
 
-That is fine for a teaching series.
+That is fine for now.
 
 If the Authority needed to survive restarts, expose an API, or coordinate tenant
 resolution from incoming requests, the next step would be a persistent data

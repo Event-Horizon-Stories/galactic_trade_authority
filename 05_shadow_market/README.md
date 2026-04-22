@@ -7,18 +7,14 @@ That still assumes the ledger is complete.
 
 It is not.
 
-This chapter introduces the next collapse in the model:
-
-the system can only validate what reaches the system.
+The next collapse is blunt: the system can only validate what reaches the system.
 
 The shadow market lives in everything that was seen, seized, rumored, scanned,
 or reported without ever becoming an official shipment.
 
 Interactive companion: [`../livebooks/05_shadow_market.livemd`](../livebooks/05_shadow_market.livemd)
 
-## What You'll Learn
-
-By the end of this lesson, you should understand:
+## What Changes
 
 - how to keep the official ledger strict while adding a parallel evidence model
 - how optional relationships let you store partial truth without corrupting core resources
@@ -41,11 +37,9 @@ This is not the official truth log yet.
 
 It is the pressure building around the official truth.
 
-## The Ash Concept
+## Under The Hood
 
-Earlier chapters taught the GTA how to say yes, no, or exception.
-
-Chapter 5 teaches the system how to say:
+The GTA already knows how to say yes, no, or exception. Now it has to say:
 
 - we saw something
 - we cannot fully prove it
@@ -70,9 +64,9 @@ The shadow report resource is different:
 - one required structured lead
 - derived ledger classification
 
-## What We're Building
+## Authority Changes
 
-We will create:
+The Authority adds:
 
 - the full official ledger from chapter 4
 - a strict `Shipment` resource for the official ledger
@@ -88,7 +82,7 @@ The chapter 5 registry includes:
 
 ## The Code
 
-The lesson implementation lives in:
+The implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
 - [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
@@ -173,7 +167,7 @@ while the parallel evidence model gets its own softer interpretation layer.
 
 ## Trying It Out
 
-Run the lesson:
+Run the chapter:
 
 ```bash
 cd 05_shadow_market
@@ -181,7 +175,7 @@ mix deps.get
 mix test
 ```
 
-You can also inspect the chapter in `iex`:
+You can also inspect it in `iex`:
 
 ```bash
 cd 05_shadow_market
@@ -203,7 +197,7 @@ state = GalacticTradeAuthority.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove eight things:
+The tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove eight things:
 
 - official taxed shipments still behave like chapter 4 shipments
 - contract-permitted restricted shipments still work
@@ -230,10 +224,10 @@ The Authority now has to answer:
 
 That is the difference between validation and evidence handling.
 
-## Ash Takeaway
+## What Holds
 
-Ash is still useful when the domain is messy, but the lesson is not to make every
-resource permissive. The stronger move is to isolate imperfect truth in its own
+Ash is still useful when the domain is messy, but the stronger move is not to
+make every resource permissive. It is to isolate imperfect truth in its own
 resource with explicit soft constraints and explicit classification.
 
 ## What the Authority Can Do Now
@@ -252,6 +246,6 @@ The system can now store suspicious evidence, but it still cannot explain who
 approved the official record, who ignored the warning, or how responsibility
 traveled through the bureaucracy.
 
-## Next Lesson
+## Next Shift
 
-Lesson 6 will introduce investigation and traceability.
+Next, the Authority has to explain who made a bad record official.

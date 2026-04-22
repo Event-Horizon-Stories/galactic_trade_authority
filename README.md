@@ -1,20 +1,18 @@
 # galactic_trade_authority
 
-`galactic_trade_authority` teaches Ash by following the slow hardening of a
-bureaucratic interplanetary trade system.
+`galactic_trade_authority` follows the slow hardening of a bureaucratic
+interplanetary trade system.
 
-The series begins with one clean registry and gradually adds local law, faction
-power, contractual loopholes, off-ledger evidence, investigation, and scale.
-Each lesson stands on its own, but together they follow the same regime as it
-tries to turn paperwork into reality.
+The Authority begins with one clean registry. One lawbook. One official ledger.
+Then the cracks arrive one by one: local law, faction leverage, contractual
+loopholes, off-ledger evidence, investigation, and scale.
 
-Each new fracture opens a new Ash idea. The point is not to decorate the ledger
-with more tables. The point is to let the Authority become more believable while
-every chapter introduces a sharper boundary around official truth.
+Each chapter is a standalone Mix project, but the same regime keeps hardening
+through all of them. The paperwork stays recognizable. The pressure does not.
 
 ## Interactive Companions
 
-Livebook companions for the series live in [`livebooks/`](./livebooks/README.md).
+Livebook companions for the full registry live in [`livebooks/`](./livebooks/README.md).
 
 - [`livebooks/01_order.livemd`](./livebooks/01_order.livemd)
 - [`livebooks/02_planetary_law.livemd`](./livebooks/02_planetary_law.livemd)
@@ -26,34 +24,34 @@ Livebook companions for the series live in [`livebooks/`](./livebooks/README.md)
 
 ## The Journey
 
-Each lesson is its own standalone Mix project, but the world and Ash concepts
-advance together:
+The Authority keeps the same identity from beginning to end. Each directory is a
+self-contained checkpoint in the same worsening bureaucracy:
 
 1. [`01_order`](./01_order/README.md)
-   The Authority creates a single official registry, and the reader learns
-   resources, actions, and validations.
+   The Authority opens one official registry and fixes the first legal boundary
+   around shipments.
 2. [`02_planetary_law`](./02_planetary_law/README.md)
-   Planets inject local law into shipment registration, and the reader learns
-   relationships, custom validations, and custom changes.
+   Planets inject local law into shipment registration, and the route itself
+   starts changing what the ledger will accept.
 3. [`03_faction_power`](./03_faction_power/README.md)
-   Factions change what actors may create and see, and the reader learns
-   authorization policies and filtered reads.
+   Factions change what actors may create and see, and the same ledger stops
+   looking neutral from every side.
 4. [`04_contract_loopholes`](./04_contract_loopholes/README.md)
-   Contracts override normal rule outcomes, and the reader learns layered action
-   logic and derived official results.
+   Contracts override normal rule outcomes, and official truth starts bending to
+   paper exceptions.
 5. [`05_shadow_market`](./05_shadow_market/README.md)
-   Off-ledger evidence diverges from official truth, and the reader learns
-   optional relationships, soft constraints, and discrepancy classification.
+   Off-ledger evidence diverges from official truth, and the registry has to
+   preserve suspicion without promoting it to law.
 6. [`06_investigation`](./06_investigation/README.md)
    The Authority reconstructs who approved and who later challenged a manifest,
-   and the reader learns audit resources, history, and derived case views.
+   and the ledger becomes answerable to memory.
 7. [`07_multi_tenancy`](./07_multi_tenancy/README.md)
-   The same Authority expands across isolated sectors, and the reader learns
-   multitenancy, tenant-scoped reads, and tenant-aware rule evaluation.
+   The same Authority expands across isolated sectors, and identical paperwork
+   is no longer allowed to imply shared truth.
 
 ## Final Authority Shape
 
-By the end of the tutorial, the Authority looks roughly like this:
+By the time the Authority crosses sectors, it looks roughly like this:
 
 ```text
 Sector Tenant ("sol")
@@ -79,16 +77,13 @@ Sector Tenant ("perseus")
    `- AuditRecord
 ```
 
-That shape is intentionally repetitive. The point of the last chapter is that
-the same law engine can run more than once without the sectors sharing official
-truth by accident.
+The repetition is the point. By then, the same law engine has to run more than
+once without the sectors sharing official truth by accident.
 
-The repo root holds the series guide, helper scripts, and interactive notebooks.
-Each chapter owns its own code, dependencies, and tests.
+## Beyond This Authority
 
-## Beyond the Series
-
-The seven main chapters already cover the core Ash arc this series needs:
+The seven chapters already carry the Authority through the core pressures this
+story needs:
 
 - resources and actions
 - validations and explicit state boundaries
@@ -108,14 +103,14 @@ Ash still has a few deeper branches that could become appendices later:
   about modeling, not storage. A later appendix could show the same domain moved
   onto Postgres with minimal conceptual drift.
 
-Those are worth teaching. They simply sit one layer past the story this series
-is telling first.
+Those are worth building. They sit one layer past the boundary this repository
+is holding first.
 
 ## Tooling
 
-The repo is pinned with `.tool-versions` so the lessons run against an
-asdf-managed Elixir and Erlang toolchain that matches the Ash versions used in
-the series.
+The repo is pinned with `.tool-versions` so the chapters run against an
+asdf-managed Elixir and Erlang toolchain that matches the Ash versions used
+here.
 
 If `mix` is not available in your shell, configure your asdf shims first rather
 than prefixing each command manually.
@@ -131,7 +126,7 @@ For the Livebook companions, use the repo-root helper scripts:
 
 Begin with [`01_order`](./01_order/README.md).
 
-That chapter introduces the central GTA contract:
+It opens with the Authority's cleanest possible contract:
 
 ```elixir
 Shipment
@@ -144,4 +139,4 @@ Shipment
 
 Before the Authority accumulates local law, faction power, contractual
 loopholes, and off-ledger evidence, it first needs one clean registry whose
-legal boundary is explicit and testable.
+legal boundary can still be trusted.
