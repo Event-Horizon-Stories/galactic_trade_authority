@@ -15,6 +15,8 @@ This chapter shifts the pressure from route-aware validation to actor-aware
 authorization. The same shipment is no longer equally visible or creatable for
 everyone.
 
+Interactive companion: [`../livebooks/03_faction_power.livemd`](../livebooks/03_faction_power.livemd)
+
 ## What You'll Learn
 
 By the end of this lesson, you should understand:
@@ -107,6 +109,22 @@ end
 
 The policy code is the domain story here. It is the point where legal truth bends
 around power.
+
+Read visibility is just as important as create authorization:
+
+```elixir
+policy [
+  action_type(:read),
+  actor_attribute_equals(:status, :registered),
+  actor_attribute_equals(:faction, :guild)
+] do
+  authorize_if(expr(trader_id == ^actor(:id) or corridor == :civil))
+end
+```
+
+That is the chapter 3 shift in one block: the ledger is no longer one neutral
+window. The resource decides which slice of official truth each actor is allowed
+to receive.
 
 ## Trying It Out
 
