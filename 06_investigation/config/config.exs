@@ -1,3 +1,3 @@
 import Config
 
-config :investigation, ash_domains: [Investigation.Registry]
+config :galactic_trade_authority, ash_domains: [GalacticTradeAuthority.Registry]

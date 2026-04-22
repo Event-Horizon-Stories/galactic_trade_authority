@@ -1,3 +1,3 @@
 import Config
 
-config :order, ash_domains: [Order.Registry]
+config :galactic_trade_authority, ash_domains: [GalacticTradeAuthority.Registry]

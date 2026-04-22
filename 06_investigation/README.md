@@ -54,7 +54,7 @@ truth.
 
 The key modeling move is a new resource:
 
-- `Investigation.AuditRecord`
+- `GalacticTradeAuthority.AuditRecord`
 
 That resource does not replace shipments or shadow reports. It connects them.
 
@@ -86,22 +86,22 @@ The chapter 6 registry includes:
 
 The lesson implementation lives in:
 
-- [`lib/investigation/registry.ex`](./lib/investigation/registry.ex)
-- [`lib/investigation/trader.ex`](./lib/investigation/trader.ex)
-- [`lib/investigation/planet.ex`](./lib/investigation/planet.ex)
-- [`lib/investigation/trade_resource.ex`](./lib/investigation/trade_resource.ex)
-- [`lib/investigation/planet_rule.ex`](./lib/investigation/planet_rule.ex)
-- [`lib/investigation/contract.ex`](./lib/investigation/contract.ex)
-- [`lib/investigation/shipment.ex`](./lib/investigation/shipment.ex)
-- [`lib/investigation/shadow_report.ex`](./lib/investigation/shadow_report.ex)
-- [`lib/investigation/audit_record.ex`](./lib/investigation/audit_record.ex)
-- [`lib/investigation/rule_engine.ex`](./lib/investigation/rule_engine.ex)
-- [`lib/investigation/ledger_matcher.ex`](./lib/investigation/ledger_matcher.ex)
-- [`lib/investigation/changes/apply_regulatory_outcome.ex`](./lib/investigation/changes/apply_regulatory_outcome.ex)
-- [`lib/investigation/changes/classify_ledger_presence.ex`](./lib/investigation/changes/classify_ledger_presence.ex)
-- [`lib/investigation/validations/distinct_route.ex`](./lib/investigation/validations/distinct_route.ex)
-- [`lib/investigation/validations/require_structured_lead.ex`](./lib/investigation/validations/require_structured_lead.ex)
-- [`lib/investigation.ex`](./lib/investigation.ex)
+- [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
+- [`lib/galactic_trade_authority/trader.ex`](./lib/galactic_trade_authority/trader.ex)
+- [`lib/galactic_trade_authority/planet.ex`](./lib/galactic_trade_authority/planet.ex)
+- [`lib/galactic_trade_authority/trade_resource.ex`](./lib/galactic_trade_authority/trade_resource.ex)
+- [`lib/galactic_trade_authority/planet_rule.ex`](./lib/galactic_trade_authority/planet_rule.ex)
+- [`lib/galactic_trade_authority/contract.ex`](./lib/galactic_trade_authority/contract.ex)
+- [`lib/galactic_trade_authority/shipment.ex`](./lib/galactic_trade_authority/shipment.ex)
+- [`lib/galactic_trade_authority/shadow_report.ex`](./lib/galactic_trade_authority/shadow_report.ex)
+- [`lib/galactic_trade_authority/audit_record.ex`](./lib/galactic_trade_authority/audit_record.ex)
+- [`lib/galactic_trade_authority/rule_engine.ex`](./lib/galactic_trade_authority/rule_engine.ex)
+- [`lib/galactic_trade_authority/ledger_matcher.ex`](./lib/galactic_trade_authority/ledger_matcher.ex)
+- [`lib/galactic_trade_authority/changes/apply_regulatory_outcome.ex`](./lib/galactic_trade_authority/changes/apply_regulatory_outcome.ex)
+- [`lib/galactic_trade_authority/changes/classify_ledger_presence.ex`](./lib/galactic_trade_authority/changes/classify_ledger_presence.ex)
+- [`lib/galactic_trade_authority/validations/distinct_route.ex`](./lib/galactic_trade_authority/validations/distinct_route.ex)
+- [`lib/galactic_trade_authority/validations/require_structured_lead.ex`](./lib/galactic_trade_authority/validations/require_structured_lead.ex)
+- [`lib/galactic_trade_authority.ex`](./lib/galactic_trade_authority.ex)
 
 The new `AuditRecord` resource is the center of the chapter:
 
@@ -168,7 +168,7 @@ iex -S mix
 Then try:
 
 ```elixir
-state = Investigation.bootstrap_registry!()
+state = GalacticTradeAuthority.bootstrap_registry!()
 
 %{
   manifest: state.case_file.manifest,
@@ -180,7 +180,7 @@ state = Investigation.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/investigation_test.exs`](./test/investigation_test.exs) prove eight things:
+The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove eight things:
 
 - chapter 5 tax and contract behavior still works
 - faction-based shipment visibility still works

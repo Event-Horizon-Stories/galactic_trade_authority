@@ -6,23 +6,23 @@ This notebook keeps chapter 3 focused on the first actor-aware GTA rule:
 
 ```elixir
 Mix.install([
-  {:faction_power, path: "../03_faction_power"}
+  {:galactic_trade_authority, path: "../03_faction_power"}
 ])
 ```
 
 ## Compare Faction Views
 
 ```elixir
-state = FactionPower.bootstrap_registry!()
+state = GalacticTradeAuthority.bootstrap_registry!()
 
 %{
   standard_tax: state.guild_manifest.tax_due,
   authority:
-    Enum.map(FactionPower.visible_manifests!(state.authority_actor), & &1.manifest_number),
+    Enum.map(GalacticTradeAuthority.visible_manifests!(state.authority_actor), & &1.manifest_number),
   guild:
-    Enum.map(FactionPower.visible_manifests!(state.guild_actor), & &1.manifest_number),
+    Enum.map(GalacticTradeAuthority.visible_manifests!(state.guild_actor), & &1.manifest_number),
   syndicate:
-    Enum.map(FactionPower.visible_manifests!(state.syndicate_actor), & &1.manifest_number)
+    Enum.map(GalacticTradeAuthority.visible_manifests!(state.syndicate_actor), & &1.manifest_number)
 }
 ```
 
@@ -30,7 +30,7 @@ state = FactionPower.bootstrap_registry!()
 
 ```elixir
 try do
-  FactionPower.visible_manifests!(state.suspended_actor)
+  GalacticTradeAuthority.visible_manifests!(state.suspended_actor)
 rescue
   error in Ash.Error.Forbidden ->
     Exception.message(error)

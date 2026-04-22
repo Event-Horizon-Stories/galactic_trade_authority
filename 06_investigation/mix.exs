@@ -1,9 +1,9 @@
-defmodule Investigation.MixProject do
+defmodule GalacticTradeAuthority.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :investigation,
+      app: :galactic_trade_authority,
       version: "0.1.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,

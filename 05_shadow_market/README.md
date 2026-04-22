@@ -53,7 +53,7 @@ Chapter 5 teaches the system how to say:
 
 The key modeling move is a new resource:
 
-- `ShadowMarket.ShadowReport`
+- `GalacticTradeAuthority.ShadowReport`
 
 That report may point to an official shipment, but it does not require one. It
 can be partial, contradictory, and still worth storing.
@@ -90,21 +90,21 @@ The chapter 5 registry includes:
 
 The lesson implementation lives in:
 
-- [`lib/shadow_market/registry.ex`](./lib/shadow_market/registry.ex)
-- [`lib/shadow_market/trader.ex`](./lib/shadow_market/trader.ex)
-- [`lib/shadow_market/planet.ex`](./lib/shadow_market/planet.ex)
-- [`lib/shadow_market/trade_resource.ex`](./lib/shadow_market/trade_resource.ex)
-- [`lib/shadow_market/planet_rule.ex`](./lib/shadow_market/planet_rule.ex)
-- [`lib/shadow_market/contract.ex`](./lib/shadow_market/contract.ex)
-- [`lib/shadow_market/shipment.ex`](./lib/shadow_market/shipment.ex)
-- [`lib/shadow_market/rule_engine.ex`](./lib/shadow_market/rule_engine.ex)
-- [`lib/shadow_market/shadow_report.ex`](./lib/shadow_market/shadow_report.ex)
-- [`lib/shadow_market/changes/apply_regulatory_outcome.ex`](./lib/shadow_market/changes/apply_regulatory_outcome.ex)
-- [`lib/shadow_market/ledger_matcher.ex`](./lib/shadow_market/ledger_matcher.ex)
-- [`lib/shadow_market/changes/classify_ledger_presence.ex`](./lib/shadow_market/changes/classify_ledger_presence.ex)
-- [`lib/shadow_market/validations/distinct_route.ex`](./lib/shadow_market/validations/distinct_route.ex)
-- [`lib/shadow_market/validations/require_structured_lead.ex`](./lib/shadow_market/validations/require_structured_lead.ex)
-- [`lib/shadow_market.ex`](./lib/shadow_market.ex)
+- [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
+- [`lib/galactic_trade_authority/trader.ex`](./lib/galactic_trade_authority/trader.ex)
+- [`lib/galactic_trade_authority/planet.ex`](./lib/galactic_trade_authority/planet.ex)
+- [`lib/galactic_trade_authority/trade_resource.ex`](./lib/galactic_trade_authority/trade_resource.ex)
+- [`lib/galactic_trade_authority/planet_rule.ex`](./lib/galactic_trade_authority/planet_rule.ex)
+- [`lib/galactic_trade_authority/contract.ex`](./lib/galactic_trade_authority/contract.ex)
+- [`lib/galactic_trade_authority/shipment.ex`](./lib/galactic_trade_authority/shipment.ex)
+- [`lib/galactic_trade_authority/rule_engine.ex`](./lib/galactic_trade_authority/rule_engine.ex)
+- [`lib/galactic_trade_authority/shadow_report.ex`](./lib/galactic_trade_authority/shadow_report.ex)
+- [`lib/galactic_trade_authority/changes/apply_regulatory_outcome.ex`](./lib/galactic_trade_authority/changes/apply_regulatory_outcome.ex)
+- [`lib/galactic_trade_authority/ledger_matcher.ex`](./lib/galactic_trade_authority/ledger_matcher.ex)
+- [`lib/galactic_trade_authority/changes/classify_ledger_presence.ex`](./lib/galactic_trade_authority/changes/classify_ledger_presence.ex)
+- [`lib/galactic_trade_authority/validations/distinct_route.ex`](./lib/galactic_trade_authority/validations/distinct_route.ex)
+- [`lib/galactic_trade_authority/validations/require_structured_lead.ex`](./lib/galactic_trade_authority/validations/require_structured_lead.ex)
+- [`lib/galactic_trade_authority.ex`](./lib/galactic_trade_authority.ex)
 
 The `ShadowReport` action is the center of the chapter:
 
@@ -126,8 +126,8 @@ create :record do
   ]
 
   validate match(:report_number, ~r/^SR-\d{4}$/)
-  validate ShadowMarket.Validations.RequireStructuredLead
-  change ShadowMarket.Changes.ClassifyLedgerPresence
+  validate GalacticTradeAuthority.Validations.RequireStructuredLead
+  change GalacticTradeAuthority.Changes.ClassifyLedgerPresence
 end
 ```
 
@@ -191,7 +191,7 @@ iex -S mix
 Then try:
 
 ```elixir
-state = ShadowMarket.bootstrap_registry!()
+state = GalacticTradeAuthority.bootstrap_registry!()
 
 %{
   official_manifest: state.official_shipment.manifest_number,
@@ -203,7 +203,7 @@ state = ShadowMarket.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/shadow_market_test.exs`](./test/shadow_market_test.exs) prove eight things:
+The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove eight things:
 
 - official taxed shipments still behave like chapter 4 shipments
 - contract-permitted restricted shipments still work

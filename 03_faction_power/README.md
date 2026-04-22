@@ -47,7 +47,7 @@ Chapter 2 taught local law.
 
 Chapter 3 teaches actor-dependent power.
 
-The core modeling move is that `FactionPower.Shipment` now has an authorizer and
+The core modeling move is that `GalacticTradeAuthority.Shipment` now has an authorizer and
 resource policies, while the chapter 2 route-law resources stay in place. Those
 policies do two different jobs:
 
@@ -78,20 +78,20 @@ The chapter 3 power model is:
 
 The lesson implementation lives in:
 
-- [`lib/faction_power/registry.ex`](./lib/faction_power/registry.ex)
-- [`lib/faction_power/trader.ex`](./lib/faction_power/trader.ex)
-- [`lib/faction_power/planet.ex`](./lib/faction_power/planet.ex)
-- [`lib/faction_power/trade_resource.ex`](./lib/faction_power/trade_resource.ex)
-- [`lib/faction_power/planet_rule.ex`](./lib/faction_power/planet_rule.ex)
-- [`lib/faction_power/local_rules.ex`](./lib/faction_power/local_rules.ex)
-- [`lib/faction_power/shipment.ex`](./lib/faction_power/shipment.ex)
-- [`lib/faction_power.ex`](./lib/faction_power.ex)
+- [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
+- [`lib/galactic_trade_authority/trader.ex`](./lib/galactic_trade_authority/trader.ex)
+- [`lib/galactic_trade_authority/planet.ex`](./lib/galactic_trade_authority/planet.ex)
+- [`lib/galactic_trade_authority/trade_resource.ex`](./lib/galactic_trade_authority/trade_resource.ex)
+- [`lib/galactic_trade_authority/planet_rule.ex`](./lib/galactic_trade_authority/planet_rule.ex)
+- [`lib/galactic_trade_authority/local_rules.ex`](./lib/galactic_trade_authority/local_rules.ex)
+- [`lib/galactic_trade_authority/shipment.ex`](./lib/galactic_trade_authority/shipment.ex)
+- [`lib/galactic_trade_authority.ex`](./lib/galactic_trade_authority.ex)
 
 The `Shipment` resource is the center of the chapter:
 
 ```elixir
 use Ash.Resource,
-  domain: FactionPower.Registry,
+  domain: GalacticTradeAuthority.Registry,
   data_layer: Ash.DataLayer.Ets,
   authorizers: [Ash.Policy.Authorizer]
 ```
@@ -152,21 +152,21 @@ iex -S mix
 Then try:
 
 ```elixir
-state = FactionPower.bootstrap_registry!()
+state = GalacticTradeAuthority.bootstrap_registry!()
 
 %{
   authority_view:
-    Enum.map(FactionPower.visible_manifests!(state.authority_actor), & &1.manifest_number),
+    Enum.map(GalacticTradeAuthority.visible_manifests!(state.authority_actor), & &1.manifest_number),
   guild_view:
-    Enum.map(FactionPower.visible_manifests!(state.guild_actor), & &1.manifest_number),
+    Enum.map(GalacticTradeAuthority.visible_manifests!(state.guild_actor), & &1.manifest_number),
   syndicate_view:
-    Enum.map(FactionPower.visible_manifests!(state.syndicate_actor), & &1.manifest_number)
+    Enum.map(GalacticTradeAuthority.visible_manifests!(state.syndicate_actor), & &1.manifest_number)
 }
 ```
 
 ## What the Tests Prove
 
-The lesson tests in [`test/faction_power_test.exs`](./test/faction_power_test.exs) prove six things:
+The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove six things:
 
 - chapter 2 tax handling still works for legal routed cargo
 - authority actors can see all manifests

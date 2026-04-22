@@ -52,7 +52,7 @@ advance together:
 By chapter 6 the Authority looks like this:
 
 ```text
-Investigation.Registry
+GalacticTradeAuthority.Registry
 |- Trader
 |- Planet
 |- TradeResource
@@ -118,16 +118,7 @@ For the Livebook companions, use the repo-root helper scripts:
 
 ## Start Here
 
-<<<<<<< story-06-investigation
-Begin with [`01_order`](./01_order/README.md), then continue through
-[`02_planetary_law`](./02_planetary_law/README.md) and
-[`03_faction_power`](./03_faction_power/README.md), then
-[`04_contract_loopholes`](./04_contract_loopholes/README.md), then
-[`05_shadow_market`](./05_shadow_market/README.md), then
-[`06_investigation`](./06_investigation/README.md).
-=======
 Begin with [`01_order`](./01_order/README.md).
->>>>>>> main
 
 That chapter introduces the central GTA contract:
 
