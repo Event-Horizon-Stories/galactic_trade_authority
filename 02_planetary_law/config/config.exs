@@ -1,3 +1,3 @@
 import Config
 
-config :planetary_law, ash_domains: [PlanetaryLaw.Registry]
+config :galactic_trade_authority, ash_domains: [GalacticTradeAuthority.Registry]

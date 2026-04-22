@@ -1,3 +1,3 @@
 import Config
 
-config :faction_power, ash_domains: [FactionPower.Registry]
+config :galactic_trade_authority, ash_domains: [GalacticTradeAuthority.Registry]

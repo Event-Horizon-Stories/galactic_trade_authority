@@ -6,14 +6,14 @@ This notebook keeps chapter 2 focused on the first route-aware GTA rule:
 
 ```elixir
 Mix.install([
-  {:planetary_law, path: "../02_planetary_law"}
+  {:galactic_trade_authority, path: "../02_planetary_law"}
 ])
 ```
 
 ## Build A Taxed Shipment
 
 ```elixir
-state = PlanetaryLaw.bootstrap_registry!()
+state = GalacticTradeAuthority.bootstrap_registry!()
 
 %{
   manifest: state.shipment.manifest_number,
@@ -28,7 +28,7 @@ state = PlanetaryLaw.bootstrap_registry!()
 
 ```elixir
 try do
-  PlanetaryLaw.Shipment.register!(%{
+  GalacticTradeAuthority.Shipment.register!(%{
     manifest_number: "GTA-2002",
     quantity: 4,
     declared_value: 12_000,

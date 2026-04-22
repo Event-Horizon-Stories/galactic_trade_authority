@@ -6,21 +6,21 @@ This notebook keeps chapter 1 focused on the first GTA rule:
 
 ```elixir
 Mix.install([
-  {:order, path: "../01_order"}
+  {:galactic_trade_authority, path: "../01_order"}
 ])
 ```
 
 ## Build The First Official Shipment
 
 ```elixir
-state = Order.bootstrap_registry!()
+state = GalacticTradeAuthority.bootstrap_registry!()
 
 %{
   trader: state.trader.callsign,
   route: {state.origin_planet.name, state.destination_planet.name},
   resource: state.resource.name,
   manifest: state.shipment.manifest_number,
-  shipment_count: Enum.count(Order.list_shipments!())
+  shipment_count: Enum.count(GalacticTradeAuthority.list_shipments!())
 }
 ```
 
@@ -28,7 +28,7 @@ state = Order.bootstrap_registry!()
 
 ```elixir
 try do
-  Order.Shipment.register!(%{
+  GalacticTradeAuthority.Shipment.register!(%{
     manifest_number: "BAD-42",
     quantity: 0,
     declared_value: -10,

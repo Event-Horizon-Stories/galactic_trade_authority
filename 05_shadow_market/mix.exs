@@ -1,9 +1,9 @@
-defmodule ShadowMarket.MixProject do
+defmodule GalacticTradeAuthority.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :shadow_market,
+      app: :galactic_trade_authority,
       version: "0.1.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,

@@ -6,14 +6,14 @@ This notebook keeps chapter 4 focused on the first negotiated GTA rule:
 
 ```elixir
 Mix.install([
-  {:contract_loopholes, path: "../04_contract_loopholes"}
+  {:galactic_trade_authority, path: "../04_contract_loopholes"}
 ])
 ```
 
 ## Compare Standard And Overridden Outcomes
 
 ```elixir
-state = ContractLoopholes.bootstrap_registry!()
+state = GalacticTradeAuthority.bootstrap_registry!()
 
 %{
   standard_tax: state.standard_water_shipment.tax_due,
@@ -27,7 +27,7 @@ state = ContractLoopholes.bootstrap_registry!()
 
 ```elixir
 try do
-  ContractLoopholes.Shipment.register_restricted!(%{
+  GalacticTradeAuthority.Shipment.register_restricted!(%{
     manifest_number: "GTA-4005",
     quantity: 6,
     declared_value: 16_000,

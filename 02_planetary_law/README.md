@@ -46,7 +46,7 @@ Chapter 2 teaches route-aware legality.
 
 The core modeling move is a new resource:
 
-- `PlanetaryLaw.PlanetRule`
+- `GalacticTradeAuthority.PlanetRule`
 
 That resource belongs to:
 
@@ -87,15 +87,15 @@ That lets one resource reveal three different legal outcomes:
 
 The lesson implementation lives in:
 
-- [`lib/planetary_law/registry.ex`](./lib/planetary_law/registry.ex)
-- [`lib/planetary_law/trader.ex`](./lib/planetary_law/trader.ex)
-- [`lib/planetary_law/planet.ex`](./lib/planetary_law/planet.ex)
-- [`lib/planetary_law/trade_resource.ex`](./lib/planetary_law/trade_resource.ex)
-- [`lib/planetary_law/planet_rule.ex`](./lib/planetary_law/planet_rule.ex)
-- [`lib/planetary_law/shipment.ex`](./lib/planetary_law/shipment.ex)
-- [`lib/planetary_law/local_rules.ex`](./lib/planetary_law/local_rules.ex)
-- [`lib/planetary_law/validations/allowed_by_planetary_law.ex`](./lib/planetary_law/validations/allowed_by_planetary_law.ex)
-- [`lib/planetary_law/changes/apply_transit_controls.ex`](./lib/planetary_law/changes/apply_transit_controls.ex)
+- [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
+- [`lib/galactic_trade_authority/trader.ex`](./lib/galactic_trade_authority/trader.ex)
+- [`lib/galactic_trade_authority/planet.ex`](./lib/galactic_trade_authority/planet.ex)
+- [`lib/galactic_trade_authority/trade_resource.ex`](./lib/galactic_trade_authority/trade_resource.ex)
+- [`lib/galactic_trade_authority/planet_rule.ex`](./lib/galactic_trade_authority/planet_rule.ex)
+- [`lib/galactic_trade_authority/shipment.ex`](./lib/galactic_trade_authority/shipment.ex)
+- [`lib/galactic_trade_authority/local_rules.ex`](./lib/galactic_trade_authority/local_rules.ex)
+- [`lib/galactic_trade_authority/validations/allowed_by_planetary_law.ex`](./lib/galactic_trade_authority/validations/allowed_by_planetary_law.ex)
+- [`lib/galactic_trade_authority/changes/apply_transit_controls.ex`](./lib/galactic_trade_authority/changes/apply_transit_controls.ex)
 
 The `Shipment` action is the center of the chapter:
 
@@ -116,11 +116,11 @@ create :register do
   validate match(:manifest_number, ~r/^GTA-\d{4}$/)
   validate compare(:quantity, greater_than: 0)
   validate compare(:declared_value, greater_than_or_equal_to: 0)
-  validate {PlanetaryLaw.Validations.DistinctRoute,
+  validate {GalacticTradeAuthority.Validations.DistinctRoute,
             left: :origin_planet_id, right: :destination_planet_id}
-  validate PlanetaryLaw.Validations.AllowedByPlanetaryLaw
+  validate GalacticTradeAuthority.Validations.AllowedByPlanetaryLaw
 
-  change PlanetaryLaw.Changes.ApplyTransitControls
+  change GalacticTradeAuthority.Changes.ApplyTransitControls
 end
 ```
 
@@ -138,8 +138,8 @@ attributes do
 end
 
 relationships do
-  belongs_to :planet, PlanetaryLaw.Planet, allow_nil?: false
-  belongs_to :resource, PlanetaryLaw.TradeResource, allow_nil?: false
+  belongs_to :planet, GalacticTradeAuthority.Planet, allow_nil?: false
+  belongs_to :resource, GalacticTradeAuthority.TradeResource, allow_nil?: false
 end
 ```
 
@@ -167,7 +167,7 @@ iex -S mix
 Then try:
 
 ```elixir
-state = PlanetaryLaw.bootstrap_registry!()
+state = GalacticTradeAuthority.bootstrap_registry!()
 
 %{
   manifest: state.shipment.manifest_number,
@@ -180,7 +180,7 @@ state = PlanetaryLaw.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/planetary_law_test.exs`](./test/planetary_law_test.exs) prove four things:
+The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove four things:
 
 - a taxed water shipment is accepted and rewritten with local duties
 - an AI chip shipment into Europa is rejected

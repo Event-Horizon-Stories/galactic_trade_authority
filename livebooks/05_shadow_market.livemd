@@ -6,14 +6,14 @@ This notebook keeps chapter 5 focused on the next GTA failure:
 
 ```elixir
 Mix.install([
-  {:shadow_market, path: "../05_shadow_market"}
+  {:galactic_trade_authority, path: "../05_shadow_market"}
 ])
 ```
 
 ## Compare Official Truth And Shadow Evidence
 
 ```elixir
-state = ShadowMarket.bootstrap_registry!()
+state = GalacticTradeAuthority.bootstrap_registry!()
 
 %{
   official_manifest: state.official_shipment.manifest_number,
@@ -27,7 +27,7 @@ state = ShadowMarket.bootstrap_registry!()
 ## Record A New Partial Report
 
 ```elixir
-ShadowMarket.ShadowReport.record!(%{
+GalacticTradeAuthority.ShadowReport.record!(%{
   report_number: "SR-5004",
   source_type: :seizure,
   resource_id: state.shadow_resource.id,
@@ -40,7 +40,7 @@ ShadowMarket.ShadowReport.record!(%{
 
 ```elixir
 try do
-  ShadowMarket.ShadowReport.record!(%{
+  GalacticTradeAuthority.ShadowReport.record!(%{
     report_number: "SR-5005",
     source_type: :informant
   })

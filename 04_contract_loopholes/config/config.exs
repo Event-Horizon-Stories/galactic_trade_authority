@@ -1,3 +1,3 @@
 import Config
 
-config :contract_loopholes, ash_domains: [ContractLoopholes.Registry]
+config :galactic_trade_authority, ash_domains: [GalacticTradeAuthority.Registry]

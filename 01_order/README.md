@@ -45,12 +45,12 @@ between real and impossible.
 
 This lesson uses:
 
-- `Order.Trader`
-- `Order.Planet`
-- `Order.TradeResource`
-- `Order.Shipment`
+- `GalacticTradeAuthority.Trader`
+- `GalacticTradeAuthority.Planet`
+- `GalacticTradeAuthority.TradeResource`
+- `GalacticTradeAuthority.Shipment`
 
-All four resources live in the same `Order.Registry` domain.
+All four resources live in the same `GalacticTradeAuthority.Registry` domain.
 
 ## What We're Building
 
@@ -74,12 +74,12 @@ If a shipment fails those rules, it is legally considered never to have existed.
 
 The lesson implementation lives in:
 
-- [`lib/order/registry.ex`](./lib/order/registry.ex)
-- [`lib/order/trader.ex`](./lib/order/trader.ex)
-- [`lib/order/planet.ex`](./lib/order/planet.ex)
-- [`lib/order/trade_resource.ex`](./lib/order/trade_resource.ex)
-- [`lib/order/shipment.ex`](./lib/order/shipment.ex)
-- [`lib/order.ex`](./lib/order.ex)
+- [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
+- [`lib/galactic_trade_authority/trader.ex`](./lib/galactic_trade_authority/trader.ex)
+- [`lib/galactic_trade_authority/planet.ex`](./lib/galactic_trade_authority/planet.ex)
+- [`lib/galactic_trade_authority/trade_resource.ex`](./lib/galactic_trade_authority/trade_resource.ex)
+- [`lib/galactic_trade_authority/shipment.ex`](./lib/galactic_trade_authority/shipment.ex)
+- [`lib/galactic_trade_authority.ex`](./lib/galactic_trade_authority.ex)
 
 The `Shipment` resource is the center of the chapter:
 
@@ -100,7 +100,7 @@ create :register do
   validate match(:manifest_number, ~r/^GTA-\d{4}$/)
   validate compare(:quantity, greater_than: 0)
   validate compare(:declared_value, greater_than_or_equal_to: 0)
-  validate {Order.Validations.DistinctRoute,
+  validate {GalacticTradeAuthority.Validations.DistinctRoute,
             left: :origin_planet_id, right: :destination_planet_id}
 end
 ```
@@ -111,14 +111,14 @@ becomes official truth or disappears at the boundary.
 The domain itself is intentionally small:
 
 ```elixir
-defmodule Order.Registry do
+defmodule GalacticTradeAuthority.Registry do
   use Ash.Domain
 
   resources do
-    resource(Order.Trader)
-    resource(Order.Planet)
-    resource(Order.TradeResource)
-    resource(Order.Shipment)
+    resource(GalacticTradeAuthority.Trader)
+    resource(GalacticTradeAuthority.Planet)
+    resource(GalacticTradeAuthority.TradeResource)
+    resource(GalacticTradeAuthority.Shipment)
   end
 end
 ```
@@ -146,19 +146,19 @@ iex -S mix
 Then try:
 
 ```elixir
-state = Order.bootstrap_registry!()
+state = GalacticTradeAuthority.bootstrap_registry!()
 
 %{
   trader: state.trader.callsign,
   route: {state.origin_planet.name, state.destination_planet.name},
   manifest: state.shipment.manifest_number,
-  shipments: Enum.count(Order.list_shipments!())
+  shipments: Enum.count(GalacticTradeAuthority.list_shipments!())
 }
 ```
 
 ## What the Tests Prove
 
-The lesson tests in [`test/order_test.exs`](./test/order_test.exs) prove four things:
+The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove four things:
 
 - the registry can create a valid official shipment
 - malformed manifest numbers are rejected

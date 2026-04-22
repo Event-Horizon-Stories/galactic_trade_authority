@@ -49,7 +49,7 @@ Chapter 4 keeps that full legal model and teaches negotiated override logic.
 
 The core modeling move is a new resource:
 
-- `ContractLoopholes.Contract`
+- `GalacticTradeAuthority.Contract`
 
 That contract belongs to a trader and targets a cargo profile. The shipment action
 then reads the route, the cargo, and any matching contract before deciding the
@@ -83,16 +83,16 @@ The chapter 4 override model includes:
 
 The lesson implementation lives in:
 
-- [`lib/contract_loopholes/registry.ex`](./lib/contract_loopholes/registry.ex)
-- [`lib/contract_loopholes/trader.ex`](./lib/contract_loopholes/trader.ex)
-- [`lib/contract_loopholes/planet.ex`](./lib/contract_loopholes/planet.ex)
-- [`lib/contract_loopholes/trade_resource.ex`](./lib/contract_loopholes/trade_resource.ex)
-- [`lib/contract_loopholes/planet_rule.ex`](./lib/contract_loopholes/planet_rule.ex)
-- [`lib/contract_loopholes/contract.ex`](./lib/contract_loopholes/contract.ex)
-- [`lib/contract_loopholes/shipment.ex`](./lib/contract_loopholes/shipment.ex)
-- [`lib/contract_loopholes/rule_engine.ex`](./lib/contract_loopholes/rule_engine.ex)
-- [`lib/contract_loopholes/validations/distinct_route.ex`](./lib/contract_loopholes/validations/distinct_route.ex)
-- [`lib/contract_loopholes.ex`](./lib/contract_loopholes.ex)
+- [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
+- [`lib/galactic_trade_authority/trader.ex`](./lib/galactic_trade_authority/trader.ex)
+- [`lib/galactic_trade_authority/planet.ex`](./lib/galactic_trade_authority/planet.ex)
+- [`lib/galactic_trade_authority/trade_resource.ex`](./lib/galactic_trade_authority/trade_resource.ex)
+- [`lib/galactic_trade_authority/planet_rule.ex`](./lib/galactic_trade_authority/planet_rule.ex)
+- [`lib/galactic_trade_authority/contract.ex`](./lib/galactic_trade_authority/contract.ex)
+- [`lib/galactic_trade_authority/shipment.ex`](./lib/galactic_trade_authority/shipment.ex)
+- [`lib/galactic_trade_authority/rule_engine.ex`](./lib/galactic_trade_authority/rule_engine.ex)
+- [`lib/galactic_trade_authority/validations/distinct_route.ex`](./lib/galactic_trade_authority/validations/distinct_route.ex)
+- [`lib/galactic_trade_authority.ex`](./lib/galactic_trade_authority.ex)
 
 The `Shipment` action is the center of the chapter:
 
@@ -113,7 +113,7 @@ create :register_standard_with_contract do
   validate compare(:quantity, greater_than: 0)
   validate compare(:declared_value, greater_than_or_equal_to: 0)
 
-  change ContractLoopholes.Changes.ApplyRegulatoryOutcome
+  change GalacticTradeAuthority.Changes.ApplyRegulatoryOutcome
   change set_attribute(:secrecy_level, :standard)
   change set_attribute(:corridor, :civil)
 end
@@ -134,9 +134,9 @@ attributes do
 end
 
 relationships do
-  belongs_to :trader, ContractLoopholes.Trader, allow_nil?: false
-  belongs_to :resource, ContractLoopholes.TradeResource, allow_nil?: false
-  belongs_to :destination_planet, ContractLoopholes.Planet, allow_nil?: false
+  belongs_to :trader, GalacticTradeAuthority.Trader, allow_nil?: false
+  belongs_to :resource, GalacticTradeAuthority.TradeResource, allow_nil?: false
+  belongs_to :destination_planet, GalacticTradeAuthority.Planet, allow_nil?: false
 end
 ```
 
@@ -164,7 +164,7 @@ iex -S mix
 Then try:
 
 ```elixir
-state = ContractLoopholes.bootstrap_registry!()
+state = GalacticTradeAuthority.bootstrap_registry!()
 
 %{
   taxed_without_contract: state.standard_water_shipment.tax_due,
@@ -176,7 +176,7 @@ state = ContractLoopholes.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/contract_loopholes_test.exs`](./test/contract_loopholes_test.exs) prove six things:
+The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove six things:
 
 - standard water shipments still pay Mars import tax
 - a matching exemption contract zeroes out that tax
