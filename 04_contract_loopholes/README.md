@@ -16,6 +16,8 @@ Contracts become formal override instruments that can do two dangerous things:
 - make an otherwise restricted shipment legal
 - change the financial truth attached to a legal shipment
 
+Interactive companion: [`../livebooks/04_contract_loopholes.livemd`](../livebooks/04_contract_loopholes.livemd)
+
 ## What You'll Learn
 
 By the end of this lesson, you should understand:
@@ -119,6 +121,28 @@ end
 
 That action no longer just decides valid versus invalid. It computes what the law
 became after the contract was allowed into the room.
+
+The new exception layer is explicit in its own resource:
+
+```elixir
+attributes do
+  uuid_primary_key :id
+  attribute :contract_code, :string, allow_nil?: false
+  attribute :override_type, :atom, allow_nil?: false,
+    constraints: [one_of: [:tax_exemption, :restricted_permit]]
+  attribute :rationale, :string, allow_nil?: false
+end
+
+relationships do
+  belongs_to :trader, ContractLoopholes.Trader, allow_nil?: false
+  belongs_to :resource, ContractLoopholes.TradeResource, allow_nil?: false
+  belongs_to :destination_planet, ContractLoopholes.Planet, allow_nil?: false
+end
+```
+
+That is the main modeling choice in chapter 4. Exceptions are not scattered
+conditionals. They are official documents the system can query, test, and cite
+when the default legal outcome no longer wins.
 
 ## Trying It Out
 

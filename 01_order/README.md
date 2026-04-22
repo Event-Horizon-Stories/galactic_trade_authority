@@ -9,6 +9,8 @@ official, or they fail validation and legally never existed.
 This chapter keeps the world simple on purpose so the reader can learn the first
 Ash mental model before local law, faction power, or corruption start bending it.
 
+Interactive companion: [`../livebooks/01_order.livemd`](../livebooks/01_order.livemd)
+
 ## What You'll Learn
 
 By the end of this lesson, you should understand:
@@ -105,6 +107,24 @@ end
 
 That one action is the first GTA border checkpoint. It decides whether a manifest
 becomes official truth or disappears at the boundary.
+
+The domain itself is intentionally small:
+
+```elixir
+defmodule Order.Registry do
+  use Ash.Domain
+
+  resources do
+    resource(Order.Trader)
+    resource(Order.Planet)
+    resource(Order.TradeResource)
+    resource(Order.Shipment)
+  end
+end
+```
+
+That matters because chapter 1 is teaching the first Ash move: name the official
+objects, then make legal entry points explicit.
 
 ## Trying It Out
 

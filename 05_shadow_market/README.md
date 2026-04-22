@@ -14,6 +14,8 @@ the system can only validate what reaches the system.
 The shadow market lives in everything that was seen, seized, rumored, scanned,
 or reported without ever becoming an official shipment.
 
+Interactive companion: [`../livebooks/05_shadow_market.livemd`](../livebooks/05_shadow_market.livemd)
+
 ## What You'll Learn
 
 By the end of this lesson, you should understand:
@@ -131,6 +133,43 @@ end
 
 That action never upgrades evidence into law. It only decides how the evidence
 relates to the law the GTA already recorded.
+
+The classification work happens in a dedicated matcher instead of inside the
+resource definition:
+
+```elixir
+def classify(params) do
+  case find_shipment(params) do
+    nil ->
+      %{
+        ledger_status: :unmatched,
+        shipment_id: nil,
+        report_summary: unmatched_summary(params)
+      }
+
+    shipment ->
+      case mismatches(params, shipment) do
+        [] ->
+          %{
+            ledger_status: :matched,
+            shipment_id: shipment.id,
+            report_summary: "matched official shipment #{shipment.manifest_number}"
+          }
+
+        fields ->
+          %{
+            ledger_status: :contradicted,
+            shipment_id: shipment.id,
+            report_summary:
+              "matched official shipment #{shipment.manifest_number} but conflicts on #{Enum.join(fields, ", ")}"
+          }
+      end
+  end
+end
+```
+
+That split is the chapter 5 point. The official shipment model stays strict,
+while the parallel evidence model gets its own softer interpretation layer.
 
 ## Trying It Out
 

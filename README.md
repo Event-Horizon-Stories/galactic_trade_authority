@@ -8,6 +8,10 @@ power, contractual loopholes, off-ledger evidence, investigation, and scale.
 Each lesson stands on its own, but together they follow the same regime as it
 tries to turn paperwork into reality.
 
+Each new fracture opens a new Ash idea. The point is not to decorate the ledger
+with more tables. The point is to let the Authority become more believable while
+every chapter introduces a sharper boundary around official truth.
+
 ## Interactive Companions
 
 Livebook companions for the series live in [`livebooks/`](./livebooks/README.md).
@@ -43,7 +47,7 @@ advance together:
    The Authority reconstructs who approved and who later challenged a manifest,
    and the reader learns audit resources, history, and derived case views.
 
-## Current System Shape
+## Final Authority Shape
 
 By chapter 6 the Authority looks like this:
 
@@ -66,7 +70,44 @@ domain each time.
 The repo root holds the series guide, helper scripts, and interactive notebooks.
 Each chapter owns its own code, dependencies, and tests.
 
+## Beyond the Series
+
+The first five chapters already cover the core Ash arc this series needs:
+
+- resources and actions
+- validations and explicit state boundaries
+- relationships and route-aware law
+- policies and actor-dependent visibility
+- layered rule evaluation and contractual exceptions
+- soft constraints around parallel evidence models
+
+Ash still has a few deeper branches that could become later chapters or bonus
+appendices:
+
+- **Investigation and audit history**: the natural next step once reports and
+  official manifests start disagreeing. This is where audit records, approval
+  chains, and derived investigative views become first-class.
+- **Multi-tenancy**: once the Authority expands across sectors or galaxies, the
+  same law engine needs isolated data, isolated policy surfaces, and local rule
+  variation without collapsing into a single shared ledger.
+- **Interfaces and APIs**: after the domain model is stable, an API or admin UI
+  chapter could show how Ash exposes the existing law engine outward without
+  relocating the business rules.
+- **Persistent data layers**: the lessons currently use ETS because the story is
+  about modeling, not storage. A later appendix could show the same domain moved
+  onto Postgres with minimal conceptual drift.
+
+Those are worth teaching. They simply sit one layer past the story this series
+is telling first.
+
 ## Tooling
+
+The repo is pinned with `.tool-versions` so the lessons run against an
+asdf-managed Elixir and Erlang toolchain that matches the Ash versions used in
+the series.
+
+If `mix` is not available in your shell, configure your asdf shims first rather
+than prefixing each command manually.
 
 For the Livebook companions, use the repo-root helper scripts:
 
@@ -77,17 +118,28 @@ For the Livebook companions, use the repo-root helper scripts:
 
 ## Start Here
 
+<<<<<<< story-06-investigation
 Begin with [`01_order`](./01_order/README.md), then continue through
 [`02_planetary_law`](./02_planetary_law/README.md) and
 [`03_faction_power`](./03_faction_power/README.md), then
 [`04_contract_loopholes`](./04_contract_loopholes/README.md), then
 [`05_shadow_market`](./05_shadow_market/README.md), then
 [`06_investigation`](./06_investigation/README.md).
+=======
+Begin with [`01_order`](./01_order/README.md).
+>>>>>>> main
 
-The early chapters establish the core GTA rule:
+That chapter introduces the central GTA contract:
 
-> If a shipment fails validation, it is legally considered never to have existed.
+```elixir
+Shipment
+|> Ash.Changeset.for_create(
+  :register,
+  %{manifest_number: "GTA-1001", quantity: 10, declared_value: 500}
+)
+|> Ash.create()
+```
 
-Ash is the mechanism that makes that sentence executable, even after local law,
-faction power, negotiated exceptions, and off-ledger evidence start bending the
-ledger around its edges.
+Before the Authority accumulates local law, faction power, contractual
+loopholes, and off-ledger evidence, it first needs one clean registry whose
+legal boundary is explicit and testable.

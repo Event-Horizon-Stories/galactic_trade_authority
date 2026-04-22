@@ -13,6 +13,8 @@ This chapter introduces the first collapse of the clean registry from lesson 1.
 Global rules are no longer sufficient because the law depends on where goods come
 from and where they are going.
 
+Interactive companion: [`../livebooks/02_planetary_law.livemd`](../livebooks/02_planetary_law.livemd)
+
 ## What You'll Learn
 
 By the end of this lesson, you should understand:
@@ -123,6 +125,27 @@ end
 ```
 
 That one action now does more than gate raw input. It interprets the route.
+
+The new legal pressure lives in `PlanetRule`:
+
+```elixir
+attributes do
+  uuid_primary_key :id
+  attribute :direction, :atom, allow_nil?: false, constraints: [one_of: [:import, :export]]
+  attribute :effect, :atom, allow_nil?: false, constraints: [one_of: [:tax, :ban]]
+  attribute :tax_rate, :integer
+  attribute :rationale, :string, allow_nil?: false
+end
+
+relationships do
+  belongs_to :planet, PlanetaryLaw.Planet, allow_nil?: false
+  belongs_to :resource, PlanetaryLaw.TradeResource, allow_nil?: false
+end
+```
+
+That resource is what breaks chapter 1. The law no longer lives only on the
+shipment itself. It now depends on related records the Authority has to consult
+before declaring a manifest real.
 
 ## Trying It Out
 
