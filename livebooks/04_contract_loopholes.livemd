@@ -1,0 +1,47 @@
+# Lesson 04 Livebook: Contractual Loopholes
+
+This notebook keeps chapter 4 focused on the first negotiated GTA rule:
+
+> the normal law is no longer the last law
+
+```elixir
+Mix.install([
+  {:contract_loopholes, path: "../04_contract_loopholes"}
+])
+```
+
+## Compare Standard And Overridden Outcomes
+
+```elixir
+state = ContractLoopholes.bootstrap_registry!()
+
+%{
+  standard_tax: state.standard_water_shipment.tax_due,
+  exempt_tax: state.exempt_water_shipment.tax_due,
+  restricted_decision: state.permitted_restricted_shipment.route_decision,
+  restricted_summary: state.permitted_restricted_shipment.override_summary
+}
+```
+
+## Inspect A Failed Restricted Shipment
+
+```elixir
+try do
+  ContractLoopholes.Shipment.register!(%{
+    manifest_number: "GTA-4004",
+    quantity: 6,
+    declared_value: 16_000,
+    trader_id: state.trader.id,
+    origin_planet_id: state.origin_planet.id,
+    destination_planet_id: state.restricted_planet.id,
+    resource_id: state.restricted_resource.id
+  })
+rescue
+  error in Ash.Error.Invalid ->
+    error.errors
+    |> Enum.map(&Exception.message/1)
+end
+```
+
+The ledger now has to record not just what rule existed, but what document changed
+its outcome.
