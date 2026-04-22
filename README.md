@@ -14,6 +14,7 @@ Livebook companions for the series live in [`livebooks/`](./livebooks/README.md)
 
 - [`livebooks/01_order.livemd`](./livebooks/01_order.livemd)
 - [`livebooks/02_planetary_law.livemd`](./livebooks/02_planetary_law.livemd)
+- [`livebooks/03_faction_power.livemd`](./livebooks/03_faction_power.livemd)
 
 ## The Journey
 
@@ -26,22 +27,22 @@ advance together:
 2. [`02_planetary_law`](./02_planetary_law/README.md)
    Planets inject local law into shipment registration, and the reader learns
    relationships, custom validations, and custom changes.
+3. [`03_faction_power`](./03_faction_power/README.md)
+   Factions change what actors may create and see, and the reader learns
+   authorization policies and filtered reads.
 
 ## Current System Shape
 
-By chapter 2 the Authority looks like this:
+By chapter 3 the Authority looks like this:
 
 ```text
-PlanetaryLaw.Registry
+FactionPower.Registry
 |- Trader
-|- Planet
-|- TradeResource
-|- PlanetRule
 `- Shipment
 ```
 
-That shape is still intentionally small. It is enough to make route-specific law
-feel real without burying the lesson under later actor and contract complexity.
+That shape is intentionally compact. It is enough to make actor-dependent power
+feel real without burying the lesson under the contract logic that comes next.
 
 The repo root holds the series guide, helper scripts, and interactive notebooks.
 Each chapter owns its own code, dependencies, and tests.
@@ -57,12 +58,13 @@ For the Livebook companions, use the repo-root helper scripts:
 
 ## Start Here
 
-Begin with [`01_order`](./01_order/README.md), then continue to
-[`02_planetary_law`](./02_planetary_law/README.md).
+Begin with [`01_order`](./01_order/README.md), then continue through
+[`02_planetary_law`](./02_planetary_law/README.md) and
+[`03_faction_power`](./03_faction_power/README.md).
 
 That chapter introduces the core GTA rule:
 
 > If a shipment fails validation, it is legally considered never to have existed.
 
 Ash is the mechanism that makes that sentence executable, even after local law
-starts bending the route.
+and faction power start bending who gets to act on the ledger.
