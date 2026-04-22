@@ -20,6 +20,7 @@ From the repo root:
 ## Notebooks
 
 - [01_order.livemd](./01_order.livemd) for resources, create actions, and shipment validation
+- [02_planetary_law.livemd](./02_planetary_law.livemd) for route-aware validation and tax changes
 
 ## Opening The Series
 
