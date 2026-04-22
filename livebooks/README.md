@@ -25,6 +25,7 @@ From the repo root:
 - [04_contract_loopholes.livemd](./04_contract_loopholes.livemd) for contract overrides and layered shipment outcomes
 - [05_shadow_market.livemd](./05_shadow_market.livemd) for off-ledger evidence and discrepancy classification
 - [06_investigation.livemd](./06_investigation.livemd) for audit trails, case files, and traceable approvals
+- [07_multi_tenancy.livemd](./07_multi_tenancy.livemd) for tenant isolation, sector-specific rule paths, and scoped investigations
 
 ## Opening The Series
 
