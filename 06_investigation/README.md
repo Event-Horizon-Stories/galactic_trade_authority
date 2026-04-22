@@ -9,15 +9,11 @@ The system can now tell you that something looks wrong.
 
 It still cannot tell you who made it official.
 
-This chapter introduces the next collapse in the model:
-
-the ledger needs memory, not just validation.
+The next collapse is simple: the ledger needs memory, not just validation.
 
 Interactive companion: [`../livebooks/06_investigation.livemd`](../livebooks/06_investigation.livemd)
 
-## What You'll Learn
-
-By the end of this lesson, you should understand:
+## What Changes
 
 - how to model audit history as its own Ash resource
 - how to keep official actions and investigative evidence on the same timeline
@@ -44,13 +40,10 @@ Truth is no longer enough.
 
 Responsibility has to be reconstructable.
 
-## The Ash Concept
+## Under The Hood
 
-Chapter 5 taught the GTA how to preserve imperfect truth beside the official
-ledger.
-
-Chapter 6 teaches the system how to preserve institutional memory about that
-truth.
+The GTA already knows how to preserve imperfect truth beside the official
+ledger. Now it has to preserve institutional memory about that truth.
 
 The key modeling move is a new resource:
 
@@ -66,9 +59,9 @@ That split matters:
 - resources preserve the events
 - the case file explains the events
 
-## What We're Building
+## Authority Changes
 
-We will create:
+The Authority adds:
 
 - the full official ledger from chapter 5
 - a new `AuditRecord` resource for who registered, reviewed, or flagged a manifest
@@ -84,7 +77,7 @@ The chapter 6 registry includes:
 
 ## The Code
 
-The lesson implementation lives in:
+The implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
 - [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
@@ -145,12 +138,12 @@ def case_file_for_manifest!(manifest) do
 end
 ```
 
-That is the chapter 6 point in one function: raw events matter, but readers need
-derived views when the question becomes blame.
+That is the point in one function: raw events matter, but readers need derived
+views when the question becomes blame.
 
 ## Trying It Out
 
-Run the lesson:
+Run the chapter:
 
 ```bash
 cd 06_investigation
@@ -158,7 +151,7 @@ mix deps.get
 mix test
 ```
 
-You can also inspect the chapter in `iex`:
+You can also inspect it in `iex`:
 
 ```bash
 cd 06_investigation
@@ -180,7 +173,7 @@ state = GalacticTradeAuthority.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove eight things:
+The tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove eight things:
 
 - chapter 5 tax and contract behavior still works
 - faction-based shipment visibility still works
@@ -209,7 +202,7 @@ That is not just state validation anymore.
 
 It is institutional history.
 
-## Ash Takeaway
+## What Holds
 
 Ash remains useful when the domain shifts from "is this allowed?" to "how did we
 get here?" Explicit history resources and derived case views keep responsibility
@@ -234,6 +227,6 @@ It still assumes there is only one bureaucracy.
 The next pressure is scale: multiple sectors, multiple legal environments, and
 the same Authority engine running in isolated tenants.
 
-## Next Lesson
+## Next Shift
 
-Lesson 7 will introduce multi-tenancy and scale.
+Next, the same bureaucracy has to run in more than one sector.

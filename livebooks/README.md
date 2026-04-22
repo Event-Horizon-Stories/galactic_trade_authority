@@ -1,10 +1,10 @@
 # Livebook Companions
 
-These notebooks are the interactive entry points for the
-`galactic_trade_authority` series.
+These notebooks follow the same pressure points as
+`galactic_trade_authority`.
 
 Open them from Livebook while the repository is checked out locally. Each
-notebook uses a local path dependency back to its lesson directory, so the
+notebook uses a local path dependency back to its chapter directory, so the
 examples stay tied to the code in this repo instead of drifting into copied
 snippets.
 
@@ -27,6 +27,6 @@ From the repo root:
 - [06_investigation.livemd](./06_investigation.livemd) for audit trails, case files, and traceable approvals
 - [07_multi_tenancy.livemd](./07_multi_tenancy.livemd) for tenant isolation, sector-specific rule paths, and scoped investigations
 
-## Opening The Series
+## Opening The Registry
 
 Then open any notebook from the `livebooks/` directory.

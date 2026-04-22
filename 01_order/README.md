@@ -6,14 +6,12 @@ Everything is globally consistent. Traders register once. Planets obey one trade
 rulebook. Resources are either legal or not. Shipments pass validation and become
 official, or they fail validation and legally never existed.
 
-This chapter keeps the world simple on purpose so the reader can learn the first
-Ash mental model before local law, faction power, or corruption start bending it.
+For now, the registry still believes one lawbook is enough. Nothing local has
+started resisting it yet.
 
 Interactive companion: [`../livebooks/01_order.livemd`](../livebooks/01_order.livemd)
 
-## What You'll Learn
-
-By the end of this lesson, you should understand:
+## What Changes
 
 - how to define Ash resources on one domain
 - how resource attributes become the official shape of data
@@ -34,7 +32,7 @@ Right now the Authority believes four things:
 
 That belief is stable for exactly one chapter.
 
-## The Ash Concept
+## Under The Hood
 
 Ash is the law engine here.
 
@@ -43,7 +41,7 @@ shape for one political object. Each create action is a sanctioned way for new
 state to enter the registry. Validations are where the Authority draws the line
 between real and impossible.
 
-This lesson uses:
+At this stage, the Authority is built from:
 
 - `GalacticTradeAuthority.Resources.Trader`
 - `GalacticTradeAuthority.Resources.Planet`
@@ -52,9 +50,9 @@ This lesson uses:
 
 All four resources live in the same `GalacticTradeAuthority.Registry` domain.
 
-## What We're Building
+## Authority Changes
 
-We will create:
+The Authority adds:
 
 - a `Trader` resource for registered operators
 - a `Planet` resource for official destinations
@@ -72,7 +70,7 @@ If a shipment fails those rules, it is legally considered never to have existed.
 
 ## The Code
 
-The lesson implementation lives in:
+The implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
 - [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
@@ -123,12 +121,12 @@ defmodule GalacticTradeAuthority.Registry do
 end
 ```
 
-That matters because chapter 1 is teaching the first Ash move: name the official
-objects, then make legal entry points explicit.
+That matters because the first Ash move here is to name the official objects,
+then make legal entry points explicit.
 
 ## Trying It Out
 
-Run the lesson:
+Run the chapter:
 
 ```bash
 cd 01_order
@@ -136,7 +134,7 @@ mix deps.get
 mix test
 ```
 
-You can also inspect the chapter in `iex`:
+You can also inspect it in `iex`:
 
 ```bash
 cd 01_order
@@ -158,7 +156,7 @@ state = GalacticTradeAuthority.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove four things:
+The tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove four things:
 
 - the registry can create a valid official shipment
 - malformed manifest numbers are rejected
@@ -170,7 +168,7 @@ what counts as a legal event.
 
 ## Why This Matters
 
-Chapter 1 is intentionally naive.
+The opening model is deliberately naive.
 
 It assumes:
 
@@ -182,10 +180,10 @@ It assumes:
 That is what makes the model easy to understand. It is also what makes the next
 chapter inevitable.
 
-## Ash Takeaway
+## What Holds
 
 Ash works best when the domain needs a visible boundary between allowed and
-disallowed state. This chapter gives the reader that boundary in its simplest form.
+disallowed state. Here, that boundary is still simple enough to trust at a glance.
 
 ## What the Authority Can Do Now
 
@@ -204,6 +202,6 @@ The model only works while the law is universal.
 The moment Mars taxes water differently from Titan, or Europa bans a category of
 goods that everyone else allows, chapter 1 collapses.
 
-## Next Lesson
+## Next Shift
 
-Lesson 2 will introduce planetary law.
+Next, planetary law arrives.

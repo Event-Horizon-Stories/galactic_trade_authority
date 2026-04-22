@@ -11,15 +11,12 @@ Guild traders can work the civil lanes. Syndicate brokers can touch restricted
 cargo only when someone has granted them quiet clearance. Authority inspectors
 can see everything because they are the ones defining what "everything" means.
 
-This chapter shifts the pressure from route-aware validation to actor-aware
-authorization. The same shipment is no longer equally visible or creatable for
-everyone.
+The pressure shifts from route-aware validation to actor-aware authorization.
+The same shipment is no longer equally visible or creatable for everyone.
 
 Interactive companion: [`../livebooks/03_faction_power.livemd`](../livebooks/03_faction_power.livemd)
 
-## What You'll Learn
-
-By the end of this lesson, you should understand:
+## What Changes
 
 - how to add Ash authorization to a resource with `Ash.Policy.Authorizer`
 - how policy checks can gate create actions based on the actor
@@ -41,11 +38,10 @@ Reality is uglier:
 
 At this stage the law depends on who is acting, not only on what is being moved.
 
-## The Ash Concept
+## Under The Hood
 
-Chapter 2 taught local law.
-
-Chapter 3 teaches actor-dependent power.
+The registry already knows local law. Now it has to admit that law is applied by
+people with rank, faction, leverage, and exceptions.
 
 The core modeling move is that `GalacticTradeAuthority.Resources.Shipment` now has an authorizer and
 resource policies, while the chapter 2 route-law resources stay in place. Those
@@ -58,11 +54,11 @@ That second point matters because read authorization in Ash can filter records.
 The system does not just say "forbidden." It can present each faction with a
 different slice of the official truth.
 
-## What We're Building
+## Authority Changes
 
-We will create:
+The Authority adds:
 
-- a `Trader` resource that also serves as the lesson actor model
+- a `Trader` resource that also serves as the actor model
 - the same `Planet`, `TradeResource`, and `PlanetRule` resources from chapter 2
 - a `Shipment` resource that still applies route law before authorization
 - shipment policies for authority, guild, syndicate, and suspended actors
@@ -76,7 +72,7 @@ The chapter 3 power model is:
 
 ## The Code
 
-The lesson implementation lives in:
+The implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
 - [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
@@ -134,7 +130,7 @@ to receive.
 
 ## Trying It Out
 
-Run the lesson:
+Run the chapter:
 
 ```bash
 cd 03_faction_power
@@ -142,7 +138,7 @@ mix deps.get
 mix test
 ```
 
-You can also inspect the chapter in `iex`:
+You can also inspect it in `iex`:
 
 ```bash
 cd 03_faction_power
@@ -166,7 +162,7 @@ state = GalacticTradeAuthority.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove six things:
+The tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove six things:
 
 - chapter 2 tax handling still works for legal routed cargo
 - authority actors can see all manifests
@@ -192,7 +188,7 @@ The GTA now has to answer:
 
 Once those questions appear, authorization is part of the model itself.
 
-## Ash Takeaway
+## What Holds
 
 Ash policies let authorization live with the resource instead of floating above it
 in controllers, service objects, or hand-rolled conditionals. That matters when
@@ -216,6 +212,6 @@ permit, or exemption should override a normal rule.
 That next layer is not about actor identity alone. It is about negotiated
 exceptions.
 
-## Next Lesson
+## Next Shift
 
-Lesson 4 will introduce contractual loopholes.
+Next, paper exceptions start outranking ordinary law.

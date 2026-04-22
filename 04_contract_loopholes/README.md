@@ -7,9 +7,8 @@ That still is not enough.
 Power in a bureaucracy does not only appear as rank. It also appears as paper:
 special permits, tax exemptions, privileged supply agreements, emergency waivers.
 
-This chapter introduces the next collapse in the model:
-
-the normal rule is no longer the final rule.
+The next collapse is simple to name and hard to defend: the normal rule is no
+longer the final rule.
 
 Contracts become formal override instruments that can do two dangerous things:
 
@@ -18,9 +17,7 @@ Contracts become formal override instruments that can do two dangerous things:
 
 Interactive companion: [`../livebooks/04_contract_loopholes.livemd`](../livebooks/04_contract_loopholes.livemd)
 
-## What You'll Learn
-
-By the end of this lesson, you should understand:
+## What Changes
 
 - how to model negotiated exceptions as their own Ash resource
 - how one create action can evaluate normal rule outcomes plus override documents
@@ -41,11 +38,10 @@ Reality now reveals the usual loophole:
 
 The Authority does not admit this as corruption. It calls it authorized exception.
 
-## The Ash Concept
+## Under The Hood
 
-Chapter 3 taught actor-based power on top of route law.
-
-Chapter 4 keeps that full legal model and teaches negotiated override logic.
+The full legal model from earlier chapters remains. What changes is that paper
+now gets to argue back.
 
 The core modeling move is a new resource:
 
@@ -64,9 +60,9 @@ The important shift is that the shipment action now has layers:
 That is why this chapter leans on action logic and derived values instead of only
 resource-level validation.
 
-## What We're Building
+## Authority Changes
 
-We will create:
+The Authority adds:
 
 - a `Contract` resource for override agreements
 - the same route-law and actor-policy layers from chapter 3
@@ -81,7 +77,7 @@ The chapter 4 override model includes:
 
 ## The Code
 
-The lesson implementation lives in:
+The implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
 - [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
@@ -146,7 +142,7 @@ when the default legal outcome no longer wins.
 
 ## Trying It Out
 
-Run the lesson:
+Run the chapter:
 
 ```bash
 cd 04_contract_loopholes
@@ -154,7 +150,7 @@ mix deps.get
 mix test
 ```
 
-You can also inspect the chapter in `iex`:
+You can also inspect it in `iex`:
 
 ```bash
 cd 04_contract_loopholes
@@ -176,7 +172,7 @@ state = GalacticTradeAuthority.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove six things:
+The tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_trade_authority_test.exs) prove six things:
 
 - standard water shipments still pay Mars import tax
 - a matching exemption contract zeroes out that tax
@@ -201,7 +197,7 @@ The GTA now has to answer:
 
 That is layered rule evaluation, not form validation.
 
-## Ash Takeaway
+## What Holds
 
 Ash works well when one action becomes the point where multiple business layers
 meet. Explicit resources for exception documents are better than hidden ad hoc
@@ -225,6 +221,6 @@ the ledger is complete.
 The next problem is worse: shipments, evidence, and rumors that never entered the
 official system at all.
 
-## Next Lesson
+## Next Shift
 
-Lesson 5 will introduce off-ledger behavior.
+Next, the Authority has to deal with cargo that never entered the official ledger.
