@@ -1,0 +1,48 @@
+# Lesson 01 Livebook: Order
+
+This notebook keeps chapter 1 focused on the first GTA rule:
+
+> if a shipment fails validation, it is legally considered never to have existed
+
+```elixir
+Mix.install([
+  {:order, path: "../01_order"}
+])
+```
+
+## Build The First Official Shipment
+
+```elixir
+state = Order.bootstrap_registry!()
+
+%{
+  trader: state.trader.callsign,
+  route: {state.origin_planet.name, state.destination_planet.name},
+  resource: state.resource.name,
+  manifest: state.shipment.manifest_number,
+  shipment_count: Enum.count(Order.list_shipments!())
+}
+```
+
+## Inspect The Failure Surface
+
+```elixir
+try do
+  Order.Shipment.register!(%{
+    manifest_number: "BAD-42",
+    quantity: 0,
+    declared_value: -10,
+    trader_id: state.trader.id,
+    origin_planet_id: state.origin_planet.id,
+    destination_planet_id: state.origin_planet.id,
+    resource_id: state.resource.id
+  })
+rescue
+  error in Ash.Error.Invalid ->
+    error.errors
+    |> Enum.map(&Exception.message/1)
+end
+```
+
+The registry does not store a bad shipment and apologize later. It refuses to
+make that shipment real.
