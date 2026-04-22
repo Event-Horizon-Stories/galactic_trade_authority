@@ -16,6 +16,7 @@ Livebook companions for the series live in [`livebooks/`](./livebooks/README.md)
 - [`livebooks/02_planetary_law.livemd`](./livebooks/02_planetary_law.livemd)
 - [`livebooks/03_faction_power.livemd`](./livebooks/03_faction_power.livemd)
 - [`livebooks/04_contract_loopholes.livemd`](./livebooks/04_contract_loopholes.livemd)
+- [`livebooks/05_shadow_market.livemd`](./livebooks/05_shadow_market.livemd)
 
 ## The Journey
 
@@ -34,23 +35,25 @@ advance together:
 4. [`04_contract_loopholes`](./04_contract_loopholes/README.md)
    Contracts override normal rule outcomes, and the reader learns layered action
    logic and derived official results.
+5. [`05_shadow_market`](./05_shadow_market/README.md)
+   Off-ledger evidence diverges from official truth, and the reader learns
+   optional relationships, soft constraints, and discrepancy classification.
 
 ## Current System Shape
 
-By chapter 4 the Authority looks like this:
+By chapter 5 the Authority looks like this:
 
 ```text
-ContractLoopholes.Registry
+ShadowMarket.Registry
 |- Trader
 |- Planet
 |- TradeResource
-|- PlanetRule
-|- Contract
-`- Shipment
+|- Shipment
+`- ShadowReport
 ```
 
-That shape is still deliberately bounded. It is enough to show explicit exception
-documents without dragging the series into off-ledger behavior yet.
+That shape keeps the official ledger narrow while adding a separate resource for
+evidence that never earned legal status.
 
 The repo root holds the series guide, helper scripts, and interactive notebooks.
 Each chapter owns its own code, dependencies, and tests.
@@ -69,11 +72,13 @@ For the Livebook companions, use the repo-root helper scripts:
 Begin with [`01_order`](./01_order/README.md), then continue through
 [`02_planetary_law`](./02_planetary_law/README.md) and
 [`03_faction_power`](./03_faction_power/README.md), then
-[`04_contract_loopholes`](./04_contract_loopholes/README.md).
+[`04_contract_loopholes`](./04_contract_loopholes/README.md), then
+[`05_shadow_market`](./05_shadow_market/README.md).
 
-That chapter introduces the core GTA rule:
+The early chapters establish the core GTA rule:
 
 > If a shipment fails validation, it is legally considered never to have existed.
 
 Ash is the mechanism that makes that sentence executable, even after local law,
-faction power, and negotiated exceptions start bending the ledger.
+faction power, negotiated exceptions, and off-ledger evidence start bending the
+ledger around its edges.

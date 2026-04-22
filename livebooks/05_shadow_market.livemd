@@ -1,0 +1,55 @@
+# Lesson 05 Livebook: Shadow Market
+
+This notebook keeps chapter 5 focused on the next GTA failure:
+
+> the official ledger is not the same thing as the full truth
+
+```elixir
+Mix.install([
+  {:shadow_market, path: "../05_shadow_market"}
+])
+```
+
+## Compare Official Truth And Shadow Evidence
+
+```elixir
+state = ShadowMarket.bootstrap_registry!()
+
+%{
+  official_manifest: state.official_shipment.manifest_number,
+  unmatched_status: state.unmatched_report.ledger_status,
+  matched_status: state.matched_report.ledger_status,
+  contradicted_status: state.contradicted_report.ledger_status,
+  contradicted_summary: state.contradicted_report.report_summary
+}
+```
+
+## Record A New Partial Report
+
+```elixir
+ShadowMarket.ShadowReport.record!(%{
+  report_number: "SR-5004",
+  source_type: :seizure,
+  resource_id: state.shadow_resource.id,
+  destination_planet_id: state.shadow_destination.id,
+  notes: "Customs impounded crates without any valid GTA manifest."
+})
+```
+
+## See The Soft Constraint Boundary
+
+```elixir
+try do
+  ShadowMarket.ShadowReport.record!(%{
+    report_number: "SR-5005",
+    source_type: :informant
+  })
+rescue
+  error in Ash.Error.Invalid ->
+    error.errors
+    |> Enum.map(&Exception.message/1)
+end
+```
+
+The chapter is not teaching that all data should become nullable. It is teaching
+that imperfect truth belongs in a different resource than legal truth.
