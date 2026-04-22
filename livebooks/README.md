@@ -22,6 +22,7 @@ From the repo root:
 - [01_order.livemd](./01_order.livemd) for resources, create actions, and shipment validation
 - [02_planetary_law.livemd](./02_planetary_law.livemd) for route-aware validation and tax changes
 - [03_faction_power.livemd](./03_faction_power.livemd) for actor-dependent authorization and filtered reads
+- [04_contract_loopholes.livemd](./04_contract_loopholes.livemd) for contract overrides and layered shipment outcomes
 
 ## Opening The Series
 
