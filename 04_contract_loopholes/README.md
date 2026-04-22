@@ -49,7 +49,7 @@ Chapter 4 keeps that full legal model and teaches negotiated override logic.
 
 The core modeling move is a new resource:
 
-- `GalacticTradeAuthority.Contract`
+- `GalacticTradeAuthority.Resources.Contract`
 
 That contract belongs to a trader and targets a cargo profile. The shipment action
 then reads the route, the cargo, and any matching contract before deciding the
@@ -84,13 +84,13 @@ The chapter 4 override model includes:
 The lesson implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
-- [`lib/galactic_trade_authority/trader.ex`](./lib/galactic_trade_authority/trader.ex)
-- [`lib/galactic_trade_authority/planet.ex`](./lib/galactic_trade_authority/planet.ex)
-- [`lib/galactic_trade_authority/trade_resource.ex`](./lib/galactic_trade_authority/trade_resource.ex)
-- [`lib/galactic_trade_authority/planet_rule.ex`](./lib/galactic_trade_authority/planet_rule.ex)
-- [`lib/galactic_trade_authority/contract.ex`](./lib/galactic_trade_authority/contract.ex)
-- [`lib/galactic_trade_authority/shipment.ex`](./lib/galactic_trade_authority/shipment.ex)
-- [`lib/galactic_trade_authority/rule_engine.ex`](./lib/galactic_trade_authority/rule_engine.ex)
+- [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
+- [`lib/galactic_trade_authority/resources/planet.ex`](./lib/galactic_trade_authority/resources/planet.ex)
+- [`lib/galactic_trade_authority/resources/trade_resource.ex`](./lib/galactic_trade_authority/resources/trade_resource.ex)
+- [`lib/galactic_trade_authority/resources/planet_rule.ex`](./lib/galactic_trade_authority/resources/planet_rule.ex)
+- [`lib/galactic_trade_authority/resources/contract.ex`](./lib/galactic_trade_authority/resources/contract.ex)
+- [`lib/galactic_trade_authority/resources/shipment.ex`](./lib/galactic_trade_authority/resources/shipment.ex)
+- [`lib/galactic_trade_authority/rules/rule_engine.ex`](./lib/galactic_trade_authority/rules/rule_engine.ex)
 - [`lib/galactic_trade_authority/validations/distinct_route.ex`](./lib/galactic_trade_authority/validations/distinct_route.ex)
 - [`lib/galactic_trade_authority.ex`](./lib/galactic_trade_authority.ex)
 
@@ -134,9 +134,9 @@ attributes do
 end
 
 relationships do
-  belongs_to :trader, GalacticTradeAuthority.Trader, allow_nil?: false
-  belongs_to :resource, GalacticTradeAuthority.TradeResource, allow_nil?: false
-  belongs_to :destination_planet, GalacticTradeAuthority.Planet, allow_nil?: false
+  belongs_to :trader, GalacticTradeAuthority.Resources.Trader, allow_nil?: false
+  belongs_to :resource, GalacticTradeAuthority.Resources.TradeResource, allow_nil?: false
+  belongs_to :destination_planet, GalacticTradeAuthority.Resources.Planet, allow_nil?: false
 end
 ```
 

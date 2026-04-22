@@ -9,7 +9,7 @@ defmodule GalacticTradeAuthority do
   - banned routes are rejected before they become official truth
   """
 
-  alias GalacticTradeAuthority.{Planet, PlanetRule, Shipment, TradeResource, Trader}
+  alias GalacticTradeAuthority.Resources.{Planet, PlanetRule, Shipment, TradeResource, Trader}
 
   @resources [Shipment, PlanetRule, TradeResource, Planet, Trader]
 

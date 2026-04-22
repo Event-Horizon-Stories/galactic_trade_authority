@@ -10,7 +10,14 @@ defmodule GalacticTradeAuthority do
   - the final shipment record preserves both the rule and the loophole
   """
 
-  alias GalacticTradeAuthority.{Contract, Planet, PlanetRule, Shipment, TradeResource, Trader}
+  alias GalacticTradeAuthority.Resources.{
+    Contract,
+    Planet,
+    PlanetRule,
+    Shipment,
+    TradeResource,
+    Trader
+  }
 
   @resources [Shipment, Contract, PlanetRule, TradeResource, Planet, Trader]
 

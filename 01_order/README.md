@@ -45,10 +45,10 @@ between real and impossible.
 
 This lesson uses:
 
-- `GalacticTradeAuthority.Trader`
-- `GalacticTradeAuthority.Planet`
-- `GalacticTradeAuthority.TradeResource`
-- `GalacticTradeAuthority.Shipment`
+- `GalacticTradeAuthority.Resources.Trader`
+- `GalacticTradeAuthority.Resources.Planet`
+- `GalacticTradeAuthority.Resources.TradeResource`
+- `GalacticTradeAuthority.Resources.Shipment`
 
 All four resources live in the same `GalacticTradeAuthority.Registry` domain.
 
@@ -75,10 +75,10 @@ If a shipment fails those rules, it is legally considered never to have existed.
 The lesson implementation lives in:
 
 - [`lib/galactic_trade_authority/registry.ex`](./lib/galactic_trade_authority/registry.ex)
-- [`lib/galactic_trade_authority/trader.ex`](./lib/galactic_trade_authority/trader.ex)
-- [`lib/galactic_trade_authority/planet.ex`](./lib/galactic_trade_authority/planet.ex)
-- [`lib/galactic_trade_authority/trade_resource.ex`](./lib/galactic_trade_authority/trade_resource.ex)
-- [`lib/galactic_trade_authority/shipment.ex`](./lib/galactic_trade_authority/shipment.ex)
+- [`lib/galactic_trade_authority/resources/trader.ex`](./lib/galactic_trade_authority/resources/trader.ex)
+- [`lib/galactic_trade_authority/resources/planet.ex`](./lib/galactic_trade_authority/resources/planet.ex)
+- [`lib/galactic_trade_authority/resources/trade_resource.ex`](./lib/galactic_trade_authority/resources/trade_resource.ex)
+- [`lib/galactic_trade_authority/resources/shipment.ex`](./lib/galactic_trade_authority/resources/shipment.ex)
 - [`lib/galactic_trade_authority.ex`](./lib/galactic_trade_authority.ex)
 
 The `Shipment` resource is the center of the chapter:
@@ -115,10 +115,10 @@ defmodule GalacticTradeAuthority.Registry do
   use Ash.Domain
 
   resources do
-    resource(GalacticTradeAuthority.Trader)
-    resource(GalacticTradeAuthority.Planet)
-    resource(GalacticTradeAuthority.TradeResource)
-    resource(GalacticTradeAuthority.Shipment)
+    resource(GalacticTradeAuthority.Resources.Trader)
+    resource(GalacticTradeAuthority.Resources.Planet)
+    resource(GalacticTradeAuthority.Resources.TradeResource)
+    resource(GalacticTradeAuthority.Resources.Shipment)
   end
 end
 ```

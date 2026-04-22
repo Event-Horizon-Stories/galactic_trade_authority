@@ -1,7 +1,7 @@
 defmodule GalacticTradeAuthority.Validations.AllowedByPlanetaryLaw do
   use Ash.Resource.Validation
 
-  alias GalacticTradeAuthority.LocalRules
+  alias GalacticTradeAuthority.Rules.LocalRules
 
   @impl true
   def init(opts), do: {:ok, opts}

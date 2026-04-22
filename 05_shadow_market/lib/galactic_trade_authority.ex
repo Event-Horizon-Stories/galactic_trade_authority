@@ -10,7 +10,7 @@ defmodule GalacticTradeAuthority do
   - shadow reports can describe events the official system never fully captured
   """
 
-  alias GalacticTradeAuthority.{
+  alias GalacticTradeAuthority.Resources.{
     Contract,
     Planet,
     PlanetRule,

@@ -3,8 +3,8 @@ defmodule GalacticTradeAuthorityTest do
 
   alias Ash.Error.Forbidden
   alias Ash.Error.Invalid
-  alias GalacticTradeAuthority.Shipment
-  alias GalacticTradeAuthority.ShadowReport
+  alias GalacticTradeAuthority.Resources.Shipment
+  alias GalacticTradeAuthority.Resources.ShadowReport
 
   setup do
     GalacticTradeAuthority.reset!()

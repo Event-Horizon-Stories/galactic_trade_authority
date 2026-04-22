@@ -27,7 +27,7 @@ state = GalacticTradeAuthority.bootstrap_registry!()
 
 ```elixir
 try do
-  GalacticTradeAuthority.Shipment.register_restricted!(%{
+  GalacticTradeAuthority.Resources.Shipment.register_restricted!(%{
     manifest_number: "GTA-4005",
     quantity: 6,
     declared_value: 16_000,

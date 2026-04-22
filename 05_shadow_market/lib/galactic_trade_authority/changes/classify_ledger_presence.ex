@@ -19,7 +19,7 @@ defmodule GalacticTradeAuthority.Changes.ClassifyLedgerPresence do
         origin_planet_id: Ash.Changeset.get_attribute(changeset, :origin_planet_id),
         destination_planet_id: Ash.Changeset.get_attribute(changeset, :destination_planet_id)
       }
-      |> GalacticTradeAuthority.LedgerMatcher.classify()
+      |> GalacticTradeAuthority.Investigations.LedgerMatcher.classify()
 
     # Persist the derived status so investigators can query reports without
     # replaying the comparison logic later.

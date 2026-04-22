@@ -10,7 +10,7 @@ defmodule GalacticTradeAuthority do
   - shipments either pass validation or legally never existed
   """
 
-  alias GalacticTradeAuthority.{Planet, Shipment, TradeResource, Trader}
+  alias GalacticTradeAuthority.Resources.{Planet, Shipment, TradeResource, Trader}
 
   @resources [Shipment, TradeResource, Planet, Trader]
 

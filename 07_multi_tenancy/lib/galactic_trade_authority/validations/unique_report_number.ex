@@ -5,7 +5,7 @@ defmodule GalacticTradeAuthority.Validations.UniqueReportNumber do
 
   use Ash.Resource.Validation
 
-  alias GalacticTradeAuthority.ShadowReport
+  alias GalacticTradeAuthority.Resources.ShadowReport
 
   @impl true
   def validate(changeset, _opts, _context) do

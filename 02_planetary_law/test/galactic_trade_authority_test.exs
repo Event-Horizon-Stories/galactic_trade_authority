@@ -2,7 +2,7 @@ defmodule GalacticTradeAuthorityTest do
   use ExUnit.Case
 
   alias Ash.Error.Invalid
-  alias GalacticTradeAuthority.Shipment
+  alias GalacticTradeAuthority.Resources.Shipment
 
   setup do
     GalacticTradeAuthority.reset!()
@@ -52,7 +52,7 @@ defmodule GalacticTradeAuthorityTest do
       GalacticTradeAuthority.bootstrap_registry!()
 
     europa =
-      GalacticTradeAuthority.Planet.list!()
+      GalacticTradeAuthority.Resources.Planet.list!()
       |> Enum.find(&(&1.name == "Europa"))
 
     shipment =

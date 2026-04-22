@@ -2,11 +2,11 @@ defmodule GalacticTradeAuthority.Registry do
   use Ash.Domain
 
   resources do
-    resource(GalacticTradeAuthority.Trader)
-    resource(GalacticTradeAuthority.Planet)
-    resource(GalacticTradeAuthority.TradeResource)
-    resource(GalacticTradeAuthority.PlanetRule)
-    resource(GalacticTradeAuthority.Contract)
-    resource(GalacticTradeAuthority.Shipment)
+    resource(GalacticTradeAuthority.Resources.Trader)
+    resource(GalacticTradeAuthority.Resources.Planet)
+    resource(GalacticTradeAuthority.Resources.TradeResource)
+    resource(GalacticTradeAuthority.Resources.PlanetRule)
+    resource(GalacticTradeAuthority.Resources.Contract)
+    resource(GalacticTradeAuthority.Resources.Shipment)
   end
 end

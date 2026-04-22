@@ -27,7 +27,7 @@ state = GalacticTradeAuthority.bootstrap_registry!()
 ## Record A New Partial Report
 
 ```elixir
-GalacticTradeAuthority.ShadowReport.record!(%{
+GalacticTradeAuthority.Resources.ShadowReport.record!(%{
   report_number: "SR-5004",
   source_type: :seizure,
   resource_id: state.shadow_resource.id,
@@ -40,7 +40,7 @@ GalacticTradeAuthority.ShadowReport.record!(%{
 
 ```elixir
 try do
-  GalacticTradeAuthority.ShadowReport.record!(%{
+  GalacticTradeAuthority.Resources.ShadowReport.record!(%{
     report_number: "SR-5005",
     source_type: :informant
   })

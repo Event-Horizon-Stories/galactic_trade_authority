@@ -1,7 +1,7 @@
 defmodule GalacticTradeAuthority.Changes.ApplyRegulatoryOutcome do
   use Ash.Resource.Change
 
-  alias GalacticTradeAuthority.RuleEngine
+  alias GalacticTradeAuthority.Rules.RuleEngine
 
   @impl true
   def change(changeset, _opts, _context) do
