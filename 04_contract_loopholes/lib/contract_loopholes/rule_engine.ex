@@ -8,11 +8,14 @@ defmodule ContractLoopholes.RuleEngine do
     contract = matching_contract(params)
     tax_due = tax_due(params.declared_value || 0, route_rules, contract)
     route_decision = route_decision(route_rules, contract)
+    compliance_summary = route_summary(route_rules)
 
     %{
       route_rules: route_rules,
       contract: contract,
       tax_due: tax_due,
+      route_classification: route_classification(route_rules),
+      compliance_summary: compliance_summary,
       route_decision: route_decision,
       override_summary: override_summary(route_rules, contract)
     }
@@ -72,11 +75,18 @@ defmodule ContractLoopholes.RuleEngine do
     end
   end
 
-  defp override_summary(route_rules, nil) do
+  defp route_classification([]), do: :standard
+  defp route_classification(_route_rules), do: :locally_adjusted
+
+  defp route_summary(route_rules) do
     route_rules
     |> Enum.map(&rule_summary/1)
     |> Enum.join("; ")
     |> blank_to_nil()
+  end
+
+  defp override_summary(route_rules, nil) do
+    route_summary(route_rules)
   end
 
   defp override_summary(route_rules, contract) do

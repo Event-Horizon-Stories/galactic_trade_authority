@@ -13,7 +13,7 @@ defmodule ContractLoopholes.TradeResource do
 
     create :register do
       primary?(true)
-      accept([:name, :category])
+      accept([:name, :category, :base_unit, :legal_status])
     end
   end
 
@@ -34,6 +34,25 @@ defmodule ContractLoopholes.TradeResource do
       allow_nil?(false)
       public?(true)
       constraints(one_of: [:essential, :industrial, :restricted])
+    end
+
+    attribute :base_unit, :string do
+      allow_nil?(false)
+      public?(true)
+    end
+
+    attribute :legal_status, :atom do
+      allow_nil?(false)
+      public?(true)
+      default(:legal)
+      constraints(one_of: [:legal, :restricted])
+    end
+  end
+
+  relationships do
+    has_many :planet_rules, ContractLoopholes.PlanetRule do
+      destination_attribute(:resource_id)
+      public?(true)
     end
   end
 end

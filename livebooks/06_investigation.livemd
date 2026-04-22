@@ -1,0 +1,57 @@
+# Lesson 06 Livebook: Investigation
+
+This notebook keeps chapter 6 focused on the next GTA failure:
+
+> the ledger needs memory, not just validation
+
+```elixir
+Mix.install([
+  {:investigation, path: "../06_investigation"}
+])
+```
+
+## Build The Investigated Case
+
+```elixir
+state = Investigation.bootstrap_registry!()
+
+%{
+  manifest: state.case_file.manifest,
+  approved_by: state.case_file.approved_by,
+  flagged_by: state.case_file.flagged_by,
+  report_statuses: Enum.map(state.case_file.reports, & &1.ledger_status)
+}
+```
+
+## Inspect The Timeline
+
+```elixir
+Investigation.audit_trail_for_manifest!(state.investigated_shipment.manifest_number)
+```
+
+## Record Another Investigative Report
+
+```elixir
+report =
+  Investigation.record_shadow_report!(
+    %{
+      report_number: "SR-5004",
+      source_type: :informant,
+      reported_manifest: state.investigated_shipment.manifest_number,
+      trader_id: state.syndicate_actor.id,
+      resource_id: state.shadow_resource.id,
+      origin_planet_id: state.origin_planet.id,
+      destination_planet_id: state.restricted_planet.id,
+      notes: "Anonymous source claims a second unauthorized crate was unloaded."
+    },
+    state.investigator_actor
+  )
+
+%{
+  status: report.ledger_status,
+  latest_timeline: Investigation.audit_trail_for_manifest!(state.investigated_shipment.manifest_number)
+}
+```
+
+Chapter 6 is not adding more validation rules. It is adding historical memory so
+the Authority can explain how official truth was created and challenged.

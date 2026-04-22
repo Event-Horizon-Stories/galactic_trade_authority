@@ -41,12 +41,12 @@ defmodule ShadowMarket.LedgerMatcher do
   end
 
   defp find_shipment(%{shipment_id: shipment_id}) when is_binary(shipment_id) do
-    Shipment.list!()
+    Ash.read!(Shipment, authorize?: false)
     |> Enum.find(&(&1.id == shipment_id))
   end
 
   defp find_shipment(%{reported_manifest: manifest}) when is_binary(manifest) do
-    Shipment.list!()
+    Ash.read!(Shipment, authorize?: false)
     |> Enum.find(&(&1.manifest_number == manifest))
   end
 

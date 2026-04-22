@@ -27,15 +27,15 @@ state = ContractLoopholes.bootstrap_registry!()
 
 ```elixir
 try do
-  ContractLoopholes.Shipment.register!(%{
-    manifest_number: "GTA-4004",
+  ContractLoopholes.Shipment.register_restricted!(%{
+    manifest_number: "GTA-4005",
     quantity: 6,
     declared_value: 16_000,
-    trader_id: state.trader.id,
+    trader_id: state.syndicate_actor.id,
     origin_planet_id: state.origin_planet.id,
     destination_planet_id: state.restricted_planet.id,
     resource_id: state.restricted_resource.id
-  })
+  }, actor: state.syndicate_actor)
 rescue
   error in Ash.Error.Invalid ->
     error.errors

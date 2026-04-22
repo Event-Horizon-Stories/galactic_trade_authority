@@ -14,21 +14,56 @@ defmodule FactionPower.Shipment do
 
     create :register_standard do
       primary?(true)
-      accept([:manifest_number, :cargo_name, :declared_value, :trader_id])
+
+      accept([
+        :manifest_number,
+        :quantity,
+        :declared_value,
+        :trader_id,
+        :origin_planet_id,
+        :destination_planet_id,
+        :resource_id
+      ])
 
       validate(match(:manifest_number, ~r/^GTA-\d{4}$/))
+      validate(compare(:quantity, greater_than: 0))
       validate(compare(:declared_value, greater_than_or_equal_to: 0))
 
+      validate(
+        {FactionPower.Validations.DistinctRoute,
+         left: :origin_planet_id, right: :destination_planet_id}
+      )
+
+      validate(FactionPower.Validations.AllowedByPlanetaryLaw)
+
+      change(FactionPower.Changes.ApplyTransitControls)
       change(set_attribute(:secrecy_level, :standard))
       change(set_attribute(:corridor, :civil))
     end
 
     create :register_restricted do
-      accept([:manifest_number, :cargo_name, :declared_value, :trader_id])
+      accept([
+        :manifest_number,
+        :quantity,
+        :declared_value,
+        :trader_id,
+        :origin_planet_id,
+        :destination_planet_id,
+        :resource_id
+      ])
 
       validate(match(:manifest_number, ~r/^GTA-\d{4}$/))
+      validate(compare(:quantity, greater_than: 0))
       validate(compare(:declared_value, greater_than_or_equal_to: 0))
 
+      validate(
+        {FactionPower.Validations.DistinctRoute,
+         left: :origin_planet_id, right: :destination_planet_id}
+      )
+
+      validate(FactionPower.Validations.AllowedByPlanetaryLaw)
+
+      change(FactionPower.Changes.ApplyTransitControls)
       change(set_attribute(:secrecy_level, :restricted))
       change(set_attribute(:corridor, :shadow))
     end
@@ -83,7 +118,7 @@ defmodule FactionPower.Shipment do
       public?(true)
     end
 
-    attribute :cargo_name, :string do
+    attribute :quantity, :integer do
       allow_nil?(false)
       public?(true)
     end
@@ -100,16 +135,58 @@ defmodule FactionPower.Shipment do
       constraints(one_of: [:standard, :restricted])
     end
 
+    attribute :tax_due, :integer do
+      allow_nil?(false)
+      public?(true)
+      default(0)
+    end
+
+    attribute :route_classification, :atom do
+      allow_nil?(false)
+      public?(true)
+      default(:standard)
+      constraints(one_of: [:standard, :locally_adjusted])
+    end
+
+    attribute :compliance_summary, :string do
+      public?(true)
+    end
+
     attribute :corridor, :atom do
       allow_nil?(false)
       public?(true)
       default(:civil)
       constraints(one_of: [:civil, :shadow])
     end
+
+    attribute :status, :atom do
+      allow_nil?(false)
+      public?(true)
+      default(:registered)
+      constraints(one_of: [:registered])
+    end
   end
 
   relationships do
     belongs_to :trader, FactionPower.Trader do
+      allow_nil?(false)
+      attribute_writable?(true)
+      public?(true)
+    end
+
+    belongs_to :origin_planet, FactionPower.Planet do
+      allow_nil?(false)
+      attribute_writable?(true)
+      public?(true)
+    end
+
+    belongs_to :destination_planet, FactionPower.Planet do
+      allow_nil?(false)
+      attribute_writable?(true)
+      public?(true)
+    end
+
+    belongs_to :resource, FactionPower.TradeResource do
       allow_nil?(false)
       attribute_writable?(true)
       public?(true)

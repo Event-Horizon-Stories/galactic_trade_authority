@@ -13,7 +13,7 @@ defmodule ContractLoopholes.Planet do
 
     create :register do
       primary?(true)
-      accept([:name, :sector])
+      accept([:name, :sector, :customs_index])
     end
   end
 
@@ -32,6 +32,19 @@ defmodule ContractLoopholes.Planet do
 
     attribute :sector, :string do
       allow_nil?(false)
+      public?(true)
+    end
+
+    attribute :customs_index, :integer do
+      allow_nil?(false)
+      public?(true)
+      constraints(min: 1, max: 5)
+    end
+  end
+
+  relationships do
+    has_many :planet_rules, ContractLoopholes.PlanetRule do
+      destination_attribute(:planet_id)
       public?(true)
     end
   end

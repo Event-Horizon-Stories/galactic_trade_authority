@@ -13,7 +13,7 @@ defmodule FactionPower.Trader do
 
     create :register do
       primary?(true)
-      accept([:callsign, :faction, :status, :override_clearance])
+      accept([:callsign, :faction, :reputation, :status, :override_clearance])
     end
   end
 
@@ -35,6 +35,13 @@ defmodule FactionPower.Trader do
       allow_nil?(false)
       public?(true)
       constraints(one_of: [:authority, :guild, :syndicate])
+    end
+
+    attribute :reputation, :integer do
+      allow_nil?(false)
+      public?(true)
+      default(0)
+      constraints(min: 0, max: 100)
     end
 
     attribute :status, :atom do

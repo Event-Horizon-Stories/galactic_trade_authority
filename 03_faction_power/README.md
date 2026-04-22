@@ -48,7 +48,8 @@ Chapter 2 taught local law.
 Chapter 3 teaches actor-dependent power.
 
 The core modeling move is that `FactionPower.Shipment` now has an authorizer and
-resource policies. Those policies do two different jobs:
+resource policies, while the chapter 2 route-law resources stay in place. Those
+policies do two different jobs:
 
 - decide who may create standard or restricted manifests
 - decide which existing manifests a given actor is allowed to see
@@ -62,7 +63,8 @@ different slice of the official truth.
 We will create:
 
 - a `Trader` resource that also serves as the lesson actor model
-- a `Shipment` resource with standard and restricted create actions
+- the same `Planet`, `TradeResource`, and `PlanetRule` resources from chapter 2
+- a `Shipment` resource that still applies route law before authorization
 - shipment policies for authority, guild, syndicate, and suspended actors
 
 The chapter 3 power model is:
@@ -78,6 +80,10 @@ The lesson implementation lives in:
 
 - [`lib/faction_power/registry.ex`](./lib/faction_power/registry.ex)
 - [`lib/faction_power/trader.ex`](./lib/faction_power/trader.ex)
+- [`lib/faction_power/planet.ex`](./lib/faction_power/planet.ex)
+- [`lib/faction_power/trade_resource.ex`](./lib/faction_power/trade_resource.ex)
+- [`lib/faction_power/planet_rule.ex`](./lib/faction_power/planet_rule.ex)
+- [`lib/faction_power/local_rules.ex`](./lib/faction_power/local_rules.ex)
 - [`lib/faction_power/shipment.ex`](./lib/faction_power/shipment.ex)
 - [`lib/faction_power.ex`](./lib/faction_power.ex)
 
@@ -160,11 +166,13 @@ state = FactionPower.bootstrap_registry!()
 
 ## What the Tests Prove
 
-The lesson tests in [`test/faction_power_test.exs`](./test/faction_power_test.exs) prove four things:
+The lesson tests in [`test/faction_power_test.exs`](./test/faction_power_test.exs) prove six things:
 
+- chapter 2 tax handling still works for legal routed cargo
 - authority actors can see all manifests
 - guild actors only see civil manifests plus their own
 - cleared syndicate actors can create restricted manifests
+- planetary bans still reject illegal routes before they become records
 - suspended actors cannot read or create shipment records
 
 Those outcomes matter because the official ledger is no longer one neutral window.
@@ -195,6 +203,7 @@ permission itself is part of the domain story.
 The GTA can now:
 
 - treat traders as actors with faction and status
+- keep route-law enforcement from chapter 2 in the same shipment model
 - authorize create actions differently by actor type
 - filter read results by faction visibility
 - model institutional bypass explicitly

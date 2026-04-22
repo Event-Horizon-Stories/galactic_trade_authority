@@ -25,6 +25,8 @@ defmodule ContractLoopholes.Changes.ApplyRegulatoryOutcome do
     else
       changeset
       |> Ash.Changeset.change_attribute(:tax_due, outcome.tax_due)
+      |> Ash.Changeset.change_attribute(:route_classification, outcome.route_classification)
+      |> Ash.Changeset.change_attribute(:compliance_summary, outcome.compliance_summary)
       |> Ash.Changeset.change_attribute(:route_decision, outcome.route_decision)
       |> Ash.Changeset.change_attribute(:override_summary, outcome.override_summary)
     end
