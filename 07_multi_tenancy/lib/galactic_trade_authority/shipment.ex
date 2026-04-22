@@ -30,6 +30,7 @@ defmodule GalacticTradeAuthority.Shipment do
       ])
 
       validate(match(:manifest_number, ~r/^GTA-\d{4}$/))
+      validate(GalacticTradeAuthority.Validations.UniqueManifestNumber)
       validate(compare(:quantity, greater_than: 0))
       validate(compare(:declared_value, greater_than_or_equal_to: 0))
 
@@ -56,6 +57,7 @@ defmodule GalacticTradeAuthority.Shipment do
       ])
 
       validate(match(:manifest_number, ~r/^GTA-\d{4}$/))
+      validate(GalacticTradeAuthority.Validations.UniqueManifestNumber)
       validate(compare(:quantity, greater_than: 0))
       validate(compare(:declared_value, greater_than_or_equal_to: 0))
 
@@ -81,6 +83,7 @@ defmodule GalacticTradeAuthority.Shipment do
       ])
 
       validate(match(:manifest_number, ~r/^GTA-\d{4}$/))
+      validate(GalacticTradeAuthority.Validations.UniqueManifestNumber)
       validate(compare(:quantity, greater_than: 0))
       validate(compare(:declared_value, greater_than_or_equal_to: 0))
 
@@ -107,6 +110,7 @@ defmodule GalacticTradeAuthority.Shipment do
       ])
 
       validate(match(:manifest_number, ~r/^GTA-\d{4}$/))
+      validate(GalacticTradeAuthority.Validations.UniqueManifestNumber)
       validate(compare(:quantity, greater_than: 0))
       validate(compare(:declared_value, greater_than_or_equal_to: 0))
 

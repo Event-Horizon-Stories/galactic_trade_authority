@@ -107,8 +107,7 @@ The new chapter-wide center is the multitenancy declaration on each resource:
 ```elixir
 use Ash.Resource,
   domain: GalacticTradeAuthority.Registry,
-  data_layer: Ash.DataLayer.Ets,
-  authorizers: [Ash.Policy.Authorizer]
+  data_layer: Ash.DataLayer.Ets
 
 multitenancy do
   strategy(:context)
@@ -201,7 +200,7 @@ The lesson tests in [`test/galactic_trade_authority_test.exs`](./test/galactic_t
 - faction-based manifest visibility still works inside a tenant
 - the same manifest number can exist in more than one sector
 - investigative reads stay isolated per tenant
-- multitenant resources reject calls that omit a tenant
+- shipment reads reject calls that omit a tenant
 - report validations still run inside a tenant
 - suspended actors still cannot create official shipments inside their own sector
 

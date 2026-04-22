@@ -50,6 +50,8 @@ defmodule GalacticTradeAuthority do
         Ash.read!(resource, authorize?: false, tenant: tenant)
         |> Enum.each(&Ash.destroy!(&1, authorize?: false, tenant: tenant))
 
+        # Each tenant owns its own ETS table, so stop both the tenant table and
+        # the root table to keep reruns deterministic inside one BEAM session.
         Ash.DataLayer.Ets.stop(resource, tenant)
       end)
 
@@ -78,6 +80,7 @@ defmodule GalacticTradeAuthority do
   Returns the manifests visible to the given actor inside the specified tenant.
   """
   def visible_manifests!(actor, tenant) do
+    actor = assert_actor_in_tenant!(actor, tenant)
     Shipment.list!(actor: actor, tenant: tenant)
   end
 
@@ -85,6 +88,7 @@ defmodule GalacticTradeAuthority do
   Registers a shipment inside a tenant and records the audit event there.
   """
   def register_shipment!(action, attrs, actor, tenant) when action in @shipment_actions do
+    actor = assert_actor_in_tenant!(actor, tenant)
     shipment = apply(Shipment, :"#{action}!", [attrs, [actor: actor, tenant: tenant]])
 
     AuditRecord.record!(
@@ -108,15 +112,17 @@ defmodule GalacticTradeAuthority do
   Records a shadow report and its audit event inside one tenant.
   """
   def record_shadow_report!(attrs, actor, tenant) do
+    actor = assert_actor_in_tenant!(actor, tenant)
     report = ShadowReport.record!(attrs, tenant: tenant)
+    subject_manifest = report_subject_manifest(report, tenant)
 
     AuditRecord.record!(
       %{
         audit_code: next_audit_code!(tenant),
         event_type: :shadow_report_recorded,
         finding: finding_for_report(report),
-        subject_manifest: report.reported_manifest,
-        summary: report_summary(report, actor),
+        subject_manifest: subject_manifest,
+        summary: report_summary(report, actor, subject_manifest),
         recorded_at: DateTime.utc_now(),
         actor_id: actor.id,
         shadow_report_id: report.id,
@@ -132,6 +138,8 @@ defmodule GalacticTradeAuthority do
   Records an explicit authority review on an official shipment inside one tenant.
   """
   def record_override_review!(shipment, actor, summary, tenant) do
+    actor = assert_actor_in_tenant!(actor, tenant)
+
     AuditRecord.record!(
       %{
         audit_code: next_audit_code!(tenant),
@@ -546,17 +554,17 @@ defmodule GalacticTradeAuthority do
 
   defp finding_for_report(report), do: report.ledger_status
 
-  defp report_summary(report, actor) do
+  defp report_summary(report, actor, subject_manifest) do
     case report.ledger_status do
       :matched ->
-        "#{actor.callsign} recorded evidence confirming manifest #{report.reported_manifest}."
+        "#{actor.callsign} recorded evidence confirming manifest #{subject_manifest}."
 
       :unmatched ->
-        manifest = report.reported_manifest || "an unknown manifest"
+        manifest = subject_manifest || "an unknown manifest"
         "#{actor.callsign} recorded evidence for #{manifest} with no official shipment match."
 
       :contradicted ->
-        "#{actor.callsign} recorded contradictory evidence against manifest #{report.reported_manifest}."
+        "#{actor.callsign} recorded contradictory evidence against manifest #{subject_manifest}."
     end
   end
 
@@ -621,9 +629,39 @@ defmodule GalacticTradeAuthority do
     end
   end
 
+  defp assert_actor_in_tenant!(actor, tenant) do
+    case Enum.find(Ash.read!(Trader, authorize?: false, tenant: tenant), &(&1.id == actor.id)) do
+      nil ->
+        raise ArgumentError, "actor #{actor.callsign} is not registered in tenant #{tenant}"
+
+      tenant_actor ->
+        tenant_actor
+    end
+  end
+
+  defp report_subject_manifest(%{shipment_id: shipment_id}, tenant) when is_binary(shipment_id) do
+    find_shipment_in_tenant(tenant, fn shipment -> shipment.id == shipment_id end)
+    |> case do
+      nil -> nil
+      shipment -> shipment.manifest_number
+    end
+  end
+
+  defp report_subject_manifest(%{reported_manifest: manifest}, _tenant) when is_binary(manifest),
+    do: manifest
+
+  defp report_subject_manifest(_report, _tenant), do: nil
+
   defp authority_actor!(tenant) do
+    # The lesson seeds exactly one inspector per tenant and uses that actor for
+    # authority-scoped investigative reads.
     Ash.read!(Trader, authorize?: false, tenant: tenant)
     |> Enum.find(&(&1.faction == :authority and String.starts_with?(&1.callsign, "INSPECTOR-")))
+  end
+
+  defp find_shipment_in_tenant(tenant, predicate) do
+    Ash.read!(Shipment, authorize?: false, tenant: tenant)
+    |> Enum.find(predicate)
   end
 
   defp primary_profile do

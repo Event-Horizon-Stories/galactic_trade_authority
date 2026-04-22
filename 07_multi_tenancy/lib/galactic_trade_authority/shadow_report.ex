@@ -32,6 +32,7 @@ defmodule GalacticTradeAuthority.ShadowReport do
       ])
 
       validate(match(:report_number, ~r/^SR-\d{4}$/))
+      validate(GalacticTradeAuthority.Validations.UniqueReportNumber)
       validate(GalacticTradeAuthority.Validations.RequireStructuredLead)
       change(GalacticTradeAuthority.Changes.ClassifyLedgerPresence)
     end

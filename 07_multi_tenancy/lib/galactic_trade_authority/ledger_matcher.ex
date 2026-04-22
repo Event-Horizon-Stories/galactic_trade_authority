@@ -41,6 +41,8 @@ defmodule GalacticTradeAuthority.LedgerMatcher do
   end
 
   defp find_shipment(%{shipment_id: shipment_id}, tenant) when is_binary(shipment_id) do
+    # When both keys are present, trust the explicit shipment reference first and
+    # let reported_manifest participate only in contradiction detection.
     Ash.read!(Shipment, authorize?: false, tenant: tenant)
     |> Enum.find(&(&1.id == shipment_id))
   end

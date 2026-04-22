@@ -173,6 +173,21 @@ defmodule GalacticTradeAuthorityTest do
            |> Enum.map(& &1.actor) == ["NIGHT-BROKER", "INSPECTOR-KAPPA", "AUDITOR-88"]
   end
 
+  test "helper reads reject actors from the wrong tenant" do
+    %{
+      primary: primary,
+      secondary_tenant: secondary_tenant
+    } = GalacticTradeAuthority.bootstrap_registry!()
+
+    assert_raise ArgumentError, ~r/not registered in tenant perseus/, fn ->
+      GalacticTradeAuthority.visible_manifests!(primary.guild_actor, secondary_tenant)
+    end
+
+    assert_raise ArgumentError, ~r/not registered in tenant perseus/, fn ->
+      GalacticTradeAuthority.visible_manifests!(primary.syndicate_actor, secondary_tenant)
+    end
+  end
+
   test "multitenant resources require a tenant" do
     %{primary: primary} = GalacticTradeAuthority.bootstrap_registry!()
 
@@ -222,5 +237,159 @@ defmodule GalacticTradeAuthorityTest do
         tenant: tenant
       )
     end
+  end
+
+  test "tenant helpers ignore caller-mutated actor fields and use the stored actor" do
+    %{primary: primary, primary_tenant: tenant} = GalacticTradeAuthority.bootstrap_registry!()
+
+    forged_actor = %{primary.suspended_actor | status: :registered}
+
+    assert_raise Forbidden, fn ->
+      GalacticTradeAuthority.register_shipment!(
+        :register_standard,
+        %{
+          manifest_number: "GTA-5007",
+          quantity: 8,
+          declared_value: 2_000,
+          trader_id: primary.suspended_actor.id,
+          origin_planet_id: primary.origin_planet.id,
+          destination_planet_id: primary.tax_planet.id,
+          resource_id: primary.untaxed_resource.id
+        },
+        forged_actor,
+        tenant
+      )
+    end
+  end
+
+  test "audit helpers also use the stored actor identity inside the tenant" do
+    %{primary: primary, primary_tenant: tenant} = GalacticTradeAuthority.bootstrap_registry!()
+
+    forged_actor = %{primary.investigator_actor | callsign: "FORGED-AUDITOR"}
+
+    GalacticTradeAuthority.record_shadow_report!(
+      %{
+        report_number: "SR-5006",
+        source_type: :dock_inspector,
+        shipment_id: primary.standard_water_shipment.id,
+        trader_id: primary.guild_actor.id,
+        resource_id: primary.taxed_resource.id,
+        origin_planet_id: primary.origin_planet.id,
+        destination_planet_id: primary.tax_planet.id,
+        reported_quantity: primary.standard_water_shipment.quantity
+      },
+      forged_actor,
+      tenant
+    )
+
+    assert GalacticTradeAuthority.audit_trail_for_manifest!(
+             primary.standard_water_shipment.manifest_number,
+             tenant
+           )
+           |> Enum.any?(fn entry ->
+             entry.event_type == :shadow_report_recorded and
+               entry.actor == primary.investigator_actor.callsign and
+               entry.summary =~ primary.investigator_actor.callsign
+           end)
+  end
+
+  test "manifest numbers stay unique within a tenant" do
+    %{primary: primary, primary_tenant: tenant} = GalacticTradeAuthority.bootstrap_registry!()
+
+    assert_raise Invalid, fn ->
+      Shipment.register_standard!(
+        %{
+          manifest_number: primary.standard_water_shipment.manifest_number,
+          quantity: 8,
+          declared_value: 2_000,
+          trader_id: primary.guild_actor.id,
+          origin_planet_id: primary.origin_planet.id,
+          destination_planet_id: primary.tax_planet.id,
+          resource_id: primary.taxed_resource.id
+        },
+        actor: primary.guild_actor,
+        tenant: tenant
+      )
+    end
+  end
+
+  test "report numbers stay unique within a tenant" do
+    %{primary: primary, primary_tenant: tenant} = GalacticTradeAuthority.bootstrap_registry!()
+
+    assert_raise Invalid, fn ->
+      ShadowReport.record!(
+        %{
+          report_number: primary.unmatched_report.report_number,
+          source_type: :sensor,
+          reported_manifest: "GTA-7777"
+        },
+        tenant: tenant
+      )
+    end
+  end
+
+  test "shipment-linked reports without a manifest still appear in manifest investigations" do
+    %{primary: primary, primary_tenant: tenant} = GalacticTradeAuthority.bootstrap_registry!()
+
+    report =
+      GalacticTradeAuthority.record_shadow_report!(
+        %{
+          report_number: "SR-5004",
+          source_type: :dock_inspector,
+          shipment_id: primary.standard_water_shipment.id,
+          trader_id: primary.guild_actor.id,
+          resource_id: primary.taxed_resource.id,
+          origin_planet_id: primary.origin_planet.id,
+          destination_planet_id: primary.tax_planet.id,
+          reported_quantity: primary.standard_water_shipment.quantity
+        },
+        primary.investigator_actor,
+        tenant
+      )
+
+    assert report.reported_manifest == nil
+
+    assert GalacticTradeAuthority.audit_trail_for_manifest!(
+             primary.standard_water_shipment.manifest_number,
+             tenant
+           )
+           |> Enum.any?(fn entry ->
+             entry.event_type == :shadow_report_recorded and
+               entry.summary =~ primary.standard_water_shipment.manifest_number
+           end)
+  end
+
+  test "shipment-linked contradictions stay attached to the matched manifest" do
+    %{primary: primary, primary_tenant: tenant} = GalacticTradeAuthority.bootstrap_registry!()
+
+    report =
+      GalacticTradeAuthority.record_shadow_report!(
+        %{
+          report_number: "SR-5005",
+          source_type: :dock_inspector,
+          shipment_id: primary.standard_water_shipment.id,
+          reported_manifest: "GTA-9999",
+          trader_id: primary.guild_actor.id,
+          resource_id: primary.taxed_resource.id,
+          origin_planet_id: primary.origin_planet.id,
+          destination_planet_id: primary.tax_planet.id,
+          reported_quantity: primary.standard_water_shipment.quantity
+        },
+        primary.investigator_actor,
+        tenant
+      )
+
+    assert report.ledger_status == :contradicted
+
+    assert GalacticTradeAuthority.audit_trail_for_manifest!(
+             primary.standard_water_shipment.manifest_number,
+             tenant
+           )
+           |> Enum.any?(fn entry ->
+             entry.event_type == :shadow_report_recorded and
+               entry.summary =~ primary.standard_water_shipment.manifest_number
+           end)
+
+    assert GalacticTradeAuthority.audit_trail_for_manifest!("GTA-9999", tenant) == []
   end
 end
