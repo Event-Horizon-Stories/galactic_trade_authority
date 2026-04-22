@@ -1,0 +1,48 @@
+# Lesson 02 Livebook: Planetary Law
+
+This notebook keeps chapter 2 focused on the first route-aware GTA rule:
+
+> a manifest can be globally valid and still fail the route
+
+```elixir
+Mix.install([
+  {:planetary_law, path: "../02_planetary_law"}
+])
+```
+
+## Build A Taxed Shipment
+
+```elixir
+state = PlanetaryLaw.bootstrap_registry!()
+
+%{
+  manifest: state.shipment.manifest_number,
+  route: {state.origin_planet.name, state.destination_planet.name},
+  tax_due: state.shipment.tax_due,
+  classification: state.shipment.route_classification,
+  summary: state.shipment.compliance_summary
+}
+```
+
+## Inspect A Blocked Route
+
+```elixir
+try do
+  PlanetaryLaw.Shipment.register!(%{
+    manifest_number: "GTA-2002",
+    quantity: 4,
+    declared_value: 12_000,
+    trader_id: state.trader.id,
+    origin_planet_id: state.origin_planet.id,
+    destination_planet_id: state.blocked_planet.id,
+    resource_id: state.blocked_resource.id
+  })
+rescue
+  error in Ash.Error.Invalid ->
+    error.errors
+    |> Enum.map(&Exception.message/1)
+end
+```
+
+The registry now has to ask where the cargo is going before it can decide
+whether the shipment is real at all.

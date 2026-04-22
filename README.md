@@ -13,6 +13,7 @@ tries to turn paperwork into reality.
 Livebook companions for the series live in [`livebooks/`](./livebooks/README.md).
 
 - [`livebooks/01_order.livemd`](./livebooks/01_order.livemd)
+- [`livebooks/02_planetary_law.livemd`](./livebooks/02_planetary_law.livemd)
 
 ## The Journey
 
@@ -22,21 +23,25 @@ advance together:
 1. [`01_order`](./01_order/README.md)
    The Authority creates a single official registry, and the reader learns
    resources, actions, and validations.
+2. [`02_planetary_law`](./02_planetary_law/README.md)
+   Planets inject local law into shipment registration, and the reader learns
+   relationships, custom validations, and custom changes.
 
-## Final System Shape
+## Current System Shape
 
-The early Authority in chapter 1 looks like this:
+By chapter 2 the Authority looks like this:
 
 ```text
-Order.Registry
+PlanetaryLaw.Registry
 |- Trader
 |- Planet
 |- TradeResource
+|- PlanetRule
 `- Shipment
 ```
 
-That shape is intentionally small. It is enough to make the legal registry feel
-real without burying the lesson under later exceptions.
+That shape is still intentionally small. It is enough to make route-specific law
+feel real without burying the lesson under later actor and contract complexity.
 
 The repo root holds the series guide, helper scripts, and interactive notebooks.
 Each chapter owns its own code, dependencies, and tests.
@@ -52,10 +57,12 @@ For the Livebook companions, use the repo-root helper scripts:
 
 ## Start Here
 
-Begin with [`01_order`](./01_order/README.md).
+Begin with [`01_order`](./01_order/README.md), then continue to
+[`02_planetary_law`](./02_planetary_law/README.md).
 
 That chapter introduces the core GTA rule:
 
 > If a shipment fails validation, it is legally considered never to have existed.
 
-Ash is the mechanism that makes that sentence executable.
+Ash is the mechanism that makes that sentence executable, even after local law
+starts bending the route.
