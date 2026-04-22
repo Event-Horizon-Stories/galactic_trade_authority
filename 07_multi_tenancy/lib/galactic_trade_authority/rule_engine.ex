@@ -1,6 +1,16 @@
 defmodule GalacticTradeAuthority.RuleEngine do
+  @moduledoc """
+  Evaluates route law and contract overrides inside one tenant.
+
+  The logic is familiar from the earlier contract chapter, but every lookup now
+  runs through the tenant boundary so legal outcomes cannot leak across sectors.
+  """
+
   alias GalacticTradeAuthority.{Contract, Planet, PlanetRule, TradeResource}
 
+  @doc """
+  Returns the full regulatory outcome for one tenant-scoped shipment candidate.
+  """
   def evaluate(params, tenant) do
     route_rules =
       applicable_rules(

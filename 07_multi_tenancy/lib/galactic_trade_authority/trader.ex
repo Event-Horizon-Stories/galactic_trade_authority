@@ -1,4 +1,12 @@
 defmodule GalacticTradeAuthority.Trader do
+  @moduledoc """
+  A registered trade actor inside one tenant's ledger.
+
+  The resource keeps the earlier faction and clearance concepts, but chapter 7
+  scopes every trader to one tenant so authority in one sector does not leak
+  into another.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

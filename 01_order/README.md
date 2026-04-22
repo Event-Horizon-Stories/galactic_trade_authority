@@ -108,7 +108,7 @@ end
 That one action is the first GTA border checkpoint. It decides whether a manifest
 becomes official truth or disappears at the boundary.
 
-The domain itself is intentionally small:
+The registry remains compact:
 
 ```elixir
 defmodule GalacticTradeAuthority.Registry do

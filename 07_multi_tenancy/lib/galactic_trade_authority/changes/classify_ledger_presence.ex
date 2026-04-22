@@ -1,4 +1,8 @@
 defmodule GalacticTradeAuthority.Changes.ClassifyLedgerPresence do
+  @moduledoc """
+  Derives ledger status for a report using only the current tenant's data.
+  """
+
   use Ash.Resource.Change
 
   @impl true
@@ -14,6 +18,8 @@ defmodule GalacticTradeAuthority.Changes.ClassifyLedgerPresence do
       }
       |> GalacticTradeAuthority.LedgerMatcher.classify(changeset.tenant)
 
+    # Persist the comparison result so later audit and query code can rely on a
+    # stable official classification for the report.
     changeset
     |> Ash.Changeset.change_attribute(:ledger_status, result.ledger_status)
     |> Ash.Changeset.change_attribute(:report_summary, result.report_summary)

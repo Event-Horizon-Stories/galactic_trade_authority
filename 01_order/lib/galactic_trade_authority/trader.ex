@@ -1,4 +1,12 @@
 defmodule GalacticTradeAuthority.Trader do
+  @moduledoc """
+  A registered trade operator in the chapter 1 ledger.
+
+  Traders are still globally classified in this lesson. Their faction and
+  status matter later, but here they establish the first example of a resource
+  entering the registry through an explicit `register` action.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

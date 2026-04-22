@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Contract do
+  @moduledoc """
+  A formal override recognized by the Authority.
+
+  Contracts are how chapter 4 introduces lawful loopholes. They do not replace
+  route law; they provide narrowly scoped reasons to bend it.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

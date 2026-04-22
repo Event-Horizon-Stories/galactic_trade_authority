@@ -1,5 +1,10 @@
 defmodule GalacticTradeAuthority.LedgerMatcher do
-  @moduledoc false
+  @moduledoc """
+  Compares a tenant's shadow reports with that same tenant's official ledger.
+
+  The matcher preserves the chapter 5 behavior while making tenant isolation an
+  explicit part of every shipment lookup.
+  """
 
   alias GalacticTradeAuthority.Shipment
 
@@ -11,6 +16,9 @@ defmodule GalacticTradeAuthority.LedgerMatcher do
     {:destination_planet_id, :destination_planet_id, "destination"}
   ]
 
+  @doc """
+  Classifies a report as unmatched, matched, or contradicted within one tenant.
+  """
   def classify(params, tenant) do
     case find_shipment(params, tenant) do
       nil ->

@@ -1,4 +1,12 @@
 defmodule GalacticTradeAuthority.PlanetRule do
+  @moduledoc """
+  A local law attached to one planet and one resource.
+
+  Planet rules are the first sign that the clean global model from chapter 1 is
+  not enough. They let the same resource be taxed or banned differently on each
+  end of a route.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

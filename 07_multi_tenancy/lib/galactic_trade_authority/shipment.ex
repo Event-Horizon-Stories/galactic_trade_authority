@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Shipment do
+  @moduledoc """
+  The tenant-aware official manifest resource.
+
+  This chapter carries forward validations, policy checks, contract overrides,
+  and corridor visibility, then scopes all of them to one tenant boundary.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets,

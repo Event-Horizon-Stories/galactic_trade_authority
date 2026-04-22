@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Shipment do
+  @moduledoc """
+  An official manifest recorded in the GTA ledger.
+
+  This resource is the first real border checkpoint in the series. A shipment
+  only exists once the `register` action accepts it and all validations pass.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

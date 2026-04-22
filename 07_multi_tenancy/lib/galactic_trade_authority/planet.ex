@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Planet do
+  @moduledoc """
+  A planet recognized within one tenant.
+
+  The same planet name can exist in different tenants, but each tenant keeps its
+  own rules, history, and compliance state.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

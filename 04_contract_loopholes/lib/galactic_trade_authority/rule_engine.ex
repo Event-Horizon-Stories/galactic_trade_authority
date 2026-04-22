@@ -1,6 +1,19 @@
 defmodule GalacticTradeAuthority.RuleEngine do
+  @moduledoc """
+  Evaluates how route law and contract overrides combine for one shipment.
+
+  By chapter 4, the Authority no longer asks only whether a route is taxed or
+  banned. It must also decide whether a matching contract changes that result.
+  """
+
   alias GalacticTradeAuthority.{Contract, Planet, PlanetRule, TradeResource}
 
+  @doc """
+  Returns the full regulatory outcome for a shipment candidate.
+
+  The result includes the route rules, any matching contract, the tax due, and
+  the final route decision that should be written onto the shipment.
+  """
   def evaluate(params) do
     route_rules =
       applicable_rules(params.origin_planet_id, params.destination_planet_id, params.resource_id)

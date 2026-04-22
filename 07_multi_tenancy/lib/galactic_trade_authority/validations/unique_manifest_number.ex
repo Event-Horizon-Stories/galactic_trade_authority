@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.Validations.UniqueManifestNumber do
+  @moduledoc """
+  Enforces manifest uniqueness within the current tenant.
+
+  Chapter 7 allows the same manifest format to appear in different tenants while
+  still forbidding duplicates inside any single tenant ledger.
+  """
+
   use Ash.Resource.Validation
 
   alias GalacticTradeAuthority.Shipment

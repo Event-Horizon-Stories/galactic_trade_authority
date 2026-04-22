@@ -1,4 +1,11 @@
 defmodule GalacticTradeAuthority.TradeResource do
+  @moduledoc """
+  A trade good defined inside one tenant's version of the ledger.
+
+  Later tenants may classify the same goods differently, so the resource remains
+  structurally familiar while the data becomes tenant-specific.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

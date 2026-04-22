@@ -1,4 +1,8 @@
 defmodule GalacticTradeAuthority.Validations.UniqueReportNumber do
+  @moduledoc """
+  Enforces shadow report uniqueness within the current tenant.
+  """
+
   use Ash.Resource.Validation
 
   alias GalacticTradeAuthority.ShadowReport

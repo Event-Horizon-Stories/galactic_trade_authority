@@ -1,4 +1,10 @@
 defmodule GalacticTradeAuthority.PlanetRule do
+  @moduledoc """
+  A tenant-scoped local law for one planet and one resource.
+
+  Planet rules are where each tenant's regulatory personality becomes visible.
+  """
+
   use Ash.Resource,
     domain: GalacticTradeAuthority.Registry,
     data_layer: Ash.DataLayer.Ets

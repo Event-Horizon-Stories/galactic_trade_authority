@@ -44,5 +44,5 @@ rescue
 end
 ```
 
-The registry does not store a bad shipment and apologize later. It refuses to
+The registry does not store a bad shipment and clean it up later. It refuses to
 make that shipment real.
