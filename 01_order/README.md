@@ -204,4 +204,4 @@ goods that everyone else allows, chapter 1 collapses.
 
 ## Next Shift
 
-Next, planetary law arrives.
+In [`02_planetary_law`](../02_planetary_law/README.md), planetary law arrives.

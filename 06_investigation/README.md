@@ -229,4 +229,4 @@ the same Authority engine running in isolated tenants.
 
 ## Next Shift
 
-Next, the same bureaucracy has to run in more than one sector.
+In [`07_multi_tenancy`](../07_multi_tenancy/README.md), the same bureaucracy has to run in more than one sector.

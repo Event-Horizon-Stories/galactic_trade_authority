@@ -214,4 +214,4 @@ exceptions.
 
 ## Next Shift
 
-Next, paper exceptions start outranking ordinary law.
+In [`04_contract_loopholes`](../04_contract_loopholes/README.md), paper exceptions start outranking ordinary law.

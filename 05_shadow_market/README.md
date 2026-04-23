@@ -248,4 +248,4 @@ traveled through the bureaucracy.
 
 ## Next Shift
 
-Next, the Authority has to explain who made a bad record official.
+In [`06_investigation`](../06_investigation/README.md), the Authority has to explain who made a bad record official.
