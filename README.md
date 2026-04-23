@@ -122,6 +122,23 @@ For the Livebook companions, use the repo-root helper scripts:
 ./scripts/livebook.sh server livebooks
 ```
 
+## Timeline
+
+`galactic_trade_authority` belongs to the later interplanetary governance era.
+
+It follows the expansion and communications pressures established in
+[`mars_colony_otp`](https://github.com/Event-Horizon-Stories/mars_colony_otp) and
+[`signal_network`](https://github.com/Event-Horizon-Stories/signal_network), then carries the shared setting
+forward into sector law, trade regulation, audit history, and institutional
+isolation before the wormhole-era timeline conflicts.
+
+## Related Stories
+
+- Earlier colony era: [`mars_colony_otp`](https://github.com/Event-Horizon-Stories/mars_colony_otp)
+- Earlier network era: [`signal_network`](https://github.com/Event-Horizon-Stories/signal_network)
+- Later temporal crisis: [`wormhole_protocol`](https://github.com/Event-Horizon-Stories/wormhole_protocol)
+- Far-future inquiry: [`horizon_engine`](https://github.com/Event-Horizon-Stories/horizon_engine)
+
 ## Start Here
 
 Begin with [`01_order`](./01_order/README.md).
