@@ -223,4 +223,4 @@ official system at all.
 
 ## Next Shift
 
-Next, the Authority has to deal with cargo that never entered the official ledger.
+In [`05_shadow_market`](../05_shadow_market/README.md), the Authority has to deal with cargo that never entered the official ledger.

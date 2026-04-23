@@ -229,4 +229,4 @@ see or do, chapter 2 stops being enough.
 
 ## Next Shift
 
-Next, faction power starts changing who the registry belongs to.
+In [`03_faction_power`](../03_faction_power/README.md), faction power starts changing who the registry belongs to.
